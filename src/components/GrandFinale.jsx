@@ -158,38 +158,103 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-amber-400/70 text-amber-300 text-xs sm:text-sm font-sports uppercase tracking-widest shadow-[0_0_20px_rgba(212,175,55,0.4)] mb-4"
+        className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-950/80 border-2 border-amber-400/80 text-amber-300 text-xs sm:text-sm font-sports uppercase tracking-widest shadow-[0_0_20px_rgba(255,215,0,0.6)] mb-4"
       >
         <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
         GRAND FINALE • THE GOAT BIRTHDAY SURPRISE
         <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
       </motion.div>
 
-      {/* Main Heading: THE GRAND FINALE • PLAYER ROSHAN 🐐 */}
+      {/* 1. RESTORED INITIAL BIRTHDAY GREETING: "Happy Birthday Nanba Roshan ❤️" */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.2 }}
-        className="relative z-10 text-center max-w-4xl mb-10"
+        className="relative z-10 text-center max-w-4xl mb-6"
       >
-        <h1 className="text-3xl sm:text-5xl md:text-7xl font-sports tracking-wide leading-tight text-white">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 drop-shadow-[0_0_30px_rgba(212,175,55,0.7)]">
-            THE GRAND FINALE
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-sports tracking-wide leading-tight text-white">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
+            HAPPIESTTTT BIRTHDAYYYYY
           </span>{' '}
           <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-crimson glow-crimson">
-            PLAYER ROSHAN 🐐
+            NANBA ROSHAN! ❤️
             <span className="absolute -bottom-2 inset-x-0 h-1 bg-red-600 rounded-full shadow-[0_0_15px_#c8102e]" />
+          </span>{' '}
+          <span className="whitespace-nowrap text-3xl sm:text-5xl md:text-6xl align-middle">
+            🫂🫶💎
           </span>
         </h1>
       </motion.div>
 
-      {/* 2-COLUMN LAYOUT ON DESKTOP (Left: Dedicated CR7 SIUU Visual & Dedicated Cake | Right: Emotional Birthday Letter) */}
+      {/* 2. RESTORED BIRTHDAY CAKE SECTION (Centerpiece with Candles & Candle-Blowing Interaction) */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative z-10 w-full max-w-xl flex flex-col items-center mb-12"
+      >
+        <div 
+          onClick={handleBlowCandles}
+          className="relative cursor-pointer group p-4 flex flex-col items-center w-full"
+          title="Click to blow out candles and make a wish!"
+        >
+          {/* 5 Animated Glowing Candles */}
+          <div className="flex justify-center items-end gap-3.5 mb-2">
+            {[...Array(5)].map((_, i) => (
+              <div key={`candle-${i}`} className="flex flex-col items-center">
+                {!candlesBlown ? (
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.25, 0.9, 1.15, 1],
+                      y: [0, -2, 0],
+                    }}
+                    transition={{ repeat: Infinity, duration: 0.8 + i * 0.15 }}
+                    className="w-3 h-5 rounded-full bg-gradient-to-t from-red-500 via-amber-400 to-yellow-200 shadow-[0_0_15px_#ffd700]"
+                  />
+                ) : (
+                  <div className="text-xs">💨</div>
+                )}
+                <div className="w-2 h-7 bg-gradient-to-b from-white via-red-300 to-amber-200 rounded-xs shadow-sm border border-black/20" />
+              </div>
+            ))}
+          </div>
+
+          {/* Birthday Cake Tiers (Luxury Burgundy, Crimson & Gold) */}
+          <div className="relative flex flex-col items-center w-full">
+            {/* Top Tier with Exact Single Greeting on Front */}
+            <div className="w-64 sm:w-80 py-3.5 px-4 rounded-t-2xl bg-gradient-to-r from-red-900 via-red-700 to-red-900 border-2 border-amber-400 shadow-[0_0_20px_rgba(200,16,46,0.6)] flex items-center justify-center text-center">
+              <span className="text-sm sm:text-base font-sports text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-yellow-300 to-amber-400 drop-shadow-[0_0_12px_#ffd700] tracking-wide font-bold leading-relaxed">
+                Happiestttt birthdayyyyy nanba roshan ❤️🫂
+              </span>
+            </div>
+
+            {/* Bottom Tier (Midnight Black with Golden Embellishments) */}
+            <div className="w-72 sm:w-92 h-14 rounded-b-2xl bg-neutral-900 border-2 border-t-0 border-amber-400 flex items-center justify-around px-5 text-xs text-amber-400 font-sports shadow-xl">
+              <span>⚽</span>
+              <span className="text-xs tracking-wider text-amber-300 font-bold">ROSHAN #7 • GOAT EDITION</span>
+              <span>🏆</span>
+            </div>
+
+            {/* Cake Golden Tray */}
+            <div className="w-80 sm:w-96 h-3 bg-gradient-to-r from-amber-300 via-amber-500 to-yellow-600 rounded-full shadow-[0_0_20px_#ffd700] mt-0.5" />
+          </div>
+        </div>
+
+        <button
+          onClick={handleBlowCandles}
+          className="text-xs font-tech text-amber-400 hover:text-amber-300 transition-colors uppercase tracking-wider flex items-center gap-1.5 mt-2"
+        >
+          {candlesBlown ? '✨ CANDLES BLOWN! WISH SENT TO THE STARS ✨' : '🕯️ CLICK CAKE TO BLOW CANDLES & MAKE A WISH 🕯️'}
+        </button>
+      </motion.div>
+
+      {/* 2-COLUMN LAYOUT (Left: Dedicated CR7 SIUU Visual | Right: Emotional Birthday Letter) */}
       <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
-        {/* LEFT COLUMN: DEDICATED CR7 SIUU CELEBRATION & DEDICATED BIRTHDAY CAKE */}
-        <div className="lg:col-span-5 flex flex-col gap-6 items-center w-full">
+        {/* LEFT COLUMN: DEDICATED CR7 SIUU CELEBRATION VISUAL */}
+        <div className="lg:col-span-5 flex flex-col items-center w-full">
           
-          {/* CARD 1: DEDICATED CR7 SIUU CELEBRATION IMAGE (NO BIRTHDAY GREETING) */}
+          {/* DEDICATED CR7 SIUU CELEBRATION CARD */}
           <div className="w-full rounded-3xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-black border border-red-900/60 p-5 shadow-2xl relative overflow-hidden flex flex-col items-center">
             
             {/* Top Bar with Controls */}
@@ -254,65 +319,6 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
             >
               <span>SHOUT SIUUUU! 🐐⚽</span>
             </button>
-          </div>
-
-          {/* CARD 2: DEDICATED BIRTHDAY CAKE (GREETING ONLY ON THE CAKE) */}
-          <div className="w-full rounded-3xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-black border border-amber-500/50 p-6 shadow-2xl relative overflow-hidden flex flex-col items-center">
-            
-            <div className="w-full flex items-center justify-between border-b border-amber-500/20 pb-3 mb-4">
-              <span className="text-xs font-tech text-amber-300 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                🎂 CELEBRATION CAKE
-              </span>
-              <span className="text-[11px] font-sports text-neutral-400">
-                BLOW CANDLES & MAKE A WISH
-              </span>
-            </div>
-
-            {/* Interactive Birthday Cake with Blowable Candles */}
-            <div 
-              onClick={handleBlowCandles}
-              className="flex flex-col items-center cursor-pointer group w-full"
-              title="Click to blow out candles and make a wish!"
-            >
-              {/* Candles */}
-              <div className="flex justify-center items-end gap-3.5 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <div key={`c-${i}`} className="flex flex-col items-center">
-                    {!candlesBlown ? (
-                      <motion.div
-                        animate={{
-                          scale: [1, 1.25, 0.9, 1.15, 1],
-                          y: [0, -2, 0],
-                        }}
-                        transition={{ repeat: Infinity, duration: 0.8 + i * 0.15 }}
-                        className="w-2.5 h-4 rounded-full bg-gradient-to-t from-red-500 via-amber-400 to-yellow-200 shadow-[0_0_12px_#ffd700]"
-                      />
-                    ) : (
-                      <div className="text-xs">💨</div>
-                    )}
-                    <div className="w-1.5 h-6 bg-gradient-to-b from-white to-amber-200 rounded-xs shadow-sm" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Cake Top Tier (Burgundy & Crimson) - ONLY ONE GREETING ON THE CAKE FRONT */}
-              <div className="w-64 sm:w-80 py-4 px-4 rounded-t-2xl bg-gradient-to-r from-red-900 via-red-700 to-red-900 border-2 border-amber-400 shadow-[0_0_20px_rgba(200,16,46,0.5)] flex flex-col items-center justify-center text-center">
-                <span className="text-sm sm:text-base font-sports text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-yellow-300 to-amber-400 drop-shadow-[0_0_12px_#ffd700] tracking-wide font-bold leading-relaxed">
-                  Happiestttt birthdayyyyy nanba roshan ❤️🫂
-                </span>
-              </div>
-
-              {/* Cake Bottom Tier (Midnight Black with Golden Embellishments) */}
-              <div className="w-72 sm:w-92 h-13 rounded-b-2xl bg-neutral-900 border-2 border-t-0 border-amber-400 flex items-center justify-around px-5 text-xs text-amber-400 font-sports shadow-xl">
-                <span>⚽</span>
-                <span className="text-xs tracking-wider text-amber-300 font-bold">ROSHAN #7 • GOAT EDITION</span>
-                <span>🏆</span>
-              </div>
-
-              <div className="text-[11px] font-tech text-amber-400 mt-3 uppercase tracking-wider">
-                {candlesBlown ? '✨ CANDLES BLOWN! WISH SENT! ✨' : '🕯️ TAP CAKE TO BLOW CANDLES 🕯️'}
-              </div>
-            </div>
           </div>
         </div>
 
