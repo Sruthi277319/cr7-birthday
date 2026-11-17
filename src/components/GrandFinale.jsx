@@ -276,13 +276,22 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
                 ))}
               </div>
 
-              {/* Cake Layers */}
-              <div className="w-48 h-10 rounded-t-lg bg-gradient-to-r from-red-700 via-red-600 to-red-800 border border-amber-400 flex items-center justify-center text-[10px] font-tech text-amber-200 font-bold">
-                ROSHAN #7
+              {/* Cake Topper & Golden Lettering */}
+              <div className="mb-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-500/20 border border-amber-300/70 shadow-[0_0_15px_rgba(255,215,0,0.5)] animate-pulse">
+                <span className="text-xs sm:text-sm font-sports text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-yellow-300 to-amber-400 drop-shadow-[0_0_10px_#ffd700] tracking-wide">
+                  Happiestttt birthdayyyyy nanba roshan ❤️🫂
+                </span>
               </div>
-              <div className="w-56 h-12 rounded-b-xl bg-neutral-900 border border-t-0 border-amber-400 flex items-center justify-around px-3 text-xs text-amber-400 font-sports">
+
+              {/* Cake Layers */}
+              <div className="w-56 sm:w-64 py-2 px-3 rounded-t-xl bg-gradient-to-r from-red-800 via-red-600 to-red-800 border-2 border-amber-400 flex flex-col items-center justify-center text-center shadow-lg">
+                <span className="text-xs sm:text-sm font-sports text-amber-200 drop-shadow-[0_0_8px_#ffd700] tracking-wide leading-tight">
+                  Happiestttt birthdayyyyy nanba roshan ❤️🫂
+                </span>
+              </div>
+              <div className="w-64 sm:w-72 h-12 rounded-b-xl bg-neutral-900 border border-t-0 border-amber-400 flex items-center justify-around px-4 text-xs text-amber-400 font-sports shadow-lg">
                 <span>⚽</span>
-                <span>CHAMPION CAKE</span>
+                <span className="text-[11px] tracking-wider text-amber-300">ROSHAN #7 • GOAT EDITION</span>
                 <span>🏆</span>
               </div>
 
@@ -318,14 +327,14 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
             {/* Message Content: EXACT UNALTERED REQUIRED TEXT */}
             <div className="space-y-6 text-neutral-100 text-base sm:text-lg sm:leading-relaxed font-sans">
               
-              {/* Paragraph 1: Salutation */}
+              {/* Paragraph 1: Salutation with 💎🫂 */}
               <motion.p
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="text-lg sm:text-xl font-sports text-amber-400 tracking-wide"
               >
-                To my dearest nanba,
+                To my dearest nanba, 💎🫂
               </motion.p>
 
               {/* Paragraph 2: Core friendship acknowledgment */}
