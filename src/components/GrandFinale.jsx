@@ -165,8 +165,7 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
         <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
       </motion.div>
 
-      {/* Main Birthday Heading:
-          HAPPIESTTTT BIRTHDAYYYYY NANBAAAA! ❤️🫂🫶💎 */}
+      {/* Main Heading: THE GRAND FINALE • PLAYER ROSHAN 🐐 */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -175,30 +174,29 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
       >
         <h1 className="text-3xl sm:text-5xl md:text-7xl font-sports tracking-wide leading-tight text-white">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 drop-shadow-[0_0_30px_rgba(212,175,55,0.7)]">
-            HAPPIESTTTT BIRTHDAYYYYY
+            THE GRAND FINALE
           </span>{' '}
           <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-crimson glow-crimson">
-            NANBAAAA!
+            PLAYER ROSHAN 🐐
             <span className="absolute -bottom-2 inset-x-0 h-1 bg-red-600 rounded-full shadow-[0_0_15px_#c8102e]" />
-          </span>{' '}
-          <span className="whitespace-nowrap text-3xl sm:text-5xl md:text-6xl align-middle">
-            ❤️🫂🫶💎
           </span>
         </h1>
       </motion.div>
 
-      {/* 2-COLUMN LAYOUT ON DESKTOP (Left: Uploaded CR7 Photo & Cake | Right: Exact Birthday Message) */}
+      {/* 2-COLUMN LAYOUT ON DESKTOP (Left: Dedicated CR7 SIUU Visual & Dedicated Cake | Right: Emotional Birthday Letter) */}
       <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
-        {/* LEFT COLUMN: CRISTIANO RONALDO BIRTHDAY CELEBRATION VISUAL */}
-        <div className="lg:col-span-5 flex flex-col items-center w-full">
+        {/* LEFT COLUMN: DEDICATED CR7 SIUU CELEBRATION & DEDICATED BIRTHDAY CAKE */}
+        <div className="lg:col-span-5 flex flex-col gap-6 items-center w-full">
+          
+          {/* CARD 1: DEDICATED CR7 SIUU CELEBRATION IMAGE (NO BIRTHDAY GREETING) */}
           <div className="w-full rounded-3xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-black border border-red-900/60 p-5 shadow-2xl relative overflow-hidden flex flex-col items-center">
             
             {/* Top Bar with Controls */}
             <div className="w-full flex items-center justify-between border-b border-white/10 pb-3 mb-4">
               <span className="text-xs font-tech text-amber-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                CR7 SIUUUU REFERENCE
+                CR7 SIGNATURE SIUUUU 🐐
               </span>
               <button
                 onClick={() => setIsVideoPlaying(!isVideoPlaying)}
@@ -209,7 +207,7 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
               </button>
             </div>
 
-            {/* Visual Stage displaying Uploaded Image */}
+            {/* Visual Stage displaying Uploaded CR7 SIUU Image */}
             <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-amber-400/50 shadow-[0_0_30px_rgba(200,16,46,0.35)] bg-neutral-950 flex items-center justify-center">
               <motion.img
                 src={cr7Photo}
@@ -245,14 +243,35 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
 
               {/* Caption Tag */}
               <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-red-950/80 border border-red-500/60 text-[10px] font-tech text-white">
-                ROSHAN'S HERO • CR7
+                PORTUGAL #7 • SIUUUU
               </div>
+            </div>
+
+            {/* Trigger SIUU Button */}
+            <button
+              onClick={handleTriggerFinalSiuu}
+              className="mt-4 w-full py-2.5 rounded-xl font-sports text-xs uppercase tracking-wider text-amber-300 bg-red-950/60 border border-red-700/60 hover:bg-red-900/60 transition-colors flex items-center justify-center gap-2"
+            >
+              <span>SHOUT SIUUUU! 🐐⚽</span>
+            </button>
+          </div>
+
+          {/* CARD 2: DEDICATED BIRTHDAY CAKE (GREETING ONLY ON THE CAKE) */}
+          <div className="w-full rounded-3xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-black border border-amber-500/50 p-6 shadow-2xl relative overflow-hidden flex flex-col items-center">
+            
+            <div className="w-full flex items-center justify-between border-b border-amber-500/20 pb-3 mb-4">
+              <span className="text-xs font-tech text-amber-300 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                🎂 CELEBRATION CAKE
+              </span>
+              <span className="text-[11px] font-sports text-neutral-400">
+                BLOW CANDLES & MAKE A WISH
+              </span>
             </div>
 
             {/* Interactive Birthday Cake with Blowable Candles */}
             <div 
               onClick={handleBlowCandles}
-              className="mt-6 flex flex-col items-center cursor-pointer group w-full"
+              className="flex flex-col items-center cursor-pointer group w-full"
               title="Click to blow out candles and make a wish!"
             >
               {/* Candles */}
@@ -276,26 +295,26 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
                 ))}
               </div>
 
-              {/* Cake Topper & Golden Lettering */}
-              <div className="mb-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-500/20 border border-amber-300/70 shadow-[0_0_15px_rgba(255,215,0,0.5)] animate-pulse">
-                <span className="text-xs sm:text-sm font-sports text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-yellow-300 to-amber-400 drop-shadow-[0_0_10px_#ffd700] tracking-wide">
+              {/* Cake Topper & Golden Lettering: EXACT REQUESTED TEXT */}
+              <div className="mb-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-500/20 border border-amber-300/80 shadow-[0_0_20px_rgba(255,215,0,0.6)] animate-pulse">
+                <span className="text-sm sm:text-base font-sports text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-yellow-300 to-amber-400 drop-shadow-[0_0_12px_#ffd700] tracking-wide font-bold">
                   Happiestttt birthdayyyyy nanba roshan ❤️🫂
                 </span>
               </div>
 
               {/* Cake Layers */}
-              <div className="w-56 sm:w-64 py-2 px-3 rounded-t-xl bg-gradient-to-r from-red-800 via-red-600 to-red-800 border-2 border-amber-400 flex flex-col items-center justify-center text-center shadow-lg">
-                <span className="text-xs sm:text-sm font-sports text-amber-200 drop-shadow-[0_0_8px_#ffd700] tracking-wide leading-tight">
+              <div className="w-60 sm:w-72 py-2.5 px-3 rounded-t-xl bg-gradient-to-r from-red-800 via-red-600 to-red-800 border-2 border-amber-400 flex flex-col items-center justify-center text-center shadow-lg">
+                <span className="text-xs sm:text-sm font-sports text-amber-200 drop-shadow-[0_0_8px_#ffd700] tracking-wide leading-tight font-semibold">
                   Happiestttt birthdayyyyy nanba roshan ❤️🫂
                 </span>
               </div>
-              <div className="w-64 sm:w-72 h-12 rounded-b-xl bg-neutral-900 border border-t-0 border-amber-400 flex items-center justify-around px-4 text-xs text-amber-400 font-sports shadow-lg">
+              <div className="w-68 sm:w-80 h-12 rounded-b-xl bg-neutral-900 border border-t-0 border-amber-400 flex items-center justify-around px-4 text-xs text-amber-400 font-sports shadow-lg">
                 <span>⚽</span>
-                <span className="text-[11px] tracking-wider text-amber-300">ROSHAN #7 • GOAT EDITION</span>
+                <span className="text-[11px] tracking-wider text-amber-300 font-bold">ROSHAN #7 • GOAT EDITION</span>
                 <span>🏆</span>
               </div>
 
-              <div className="text-[11px] font-tech text-amber-400 mt-2 uppercase tracking-wider">
+              <div className="text-[11px] font-tech text-amber-400 mt-3 uppercase tracking-wider">
                 {candlesBlown ? '✨ CANDLES BLOWN! WISH SENT! ✨' : '🕯️ TAP CAKE TO BLOW CANDLES 🕯️'}
               </div>
             </div>
@@ -334,17 +353,17 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="text-lg sm:text-xl font-sports text-amber-400 tracking-wide"
               >
-                To my dearest nanba, 💎🫂
+                To my dearest nanba 💎🫂
               </motion.p>
 
-              {/* Paragraph 2: Core friendship acknowledgment */}
+              {/* Paragraph 2: Core friendship acknowledgment - with 'the one' */}
               <motion.p
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.6 }}
                 className="leading-relaxed"
               >
-                You're my one and only, my bestesttt male friend, and someone who will always have a special place in my heart. No matter how many people come into my life, you're the one for me,{' '}
+                You're my one and only, my bestesttt male friend, and the one who will always have a special place in my heart. No matter how many people come into my life, you're the one for me,{' '}
                 <span className="font-bold text-red-500 glow-crimson">
                   nanba! ❤️
                 </span>

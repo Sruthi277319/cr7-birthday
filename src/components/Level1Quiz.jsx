@@ -73,63 +73,39 @@ export default function Level1Quiz({ onCompleteLevel, isCompleted, onNextLevel, 
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-65px)] w-full py-8 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Level Header Badge */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-2 shadow-[0_0_12px_rgba(200,16,46,0.4)]"
-      >
-        <Trophy className="w-3.5 h-3.5 text-amber-400" />
-        LEVEL 1 OF 4 • THE CR7 CHALLENGE
-      </motion.div>
-
-      {/* Main Heading (Exact as requested: ARE YOU A TRUE CR7 FAN? 🐐) */}
-      <motion.h2
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-3xl sm:text-5xl md:text-6xl font-sports text-center tracking-wide uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-red-500 drop-shadow-[0_0_25px_rgba(200,16,46,0.6)] mb-3"
-      >
-        ARE YOU A TRUE CR7 FAN? 🐐
-      </motion.h2>
-
-      <p className="text-neutral-300 text-sm sm:text-base text-center max-w-xl mb-6">
-        Step up, <strong className="text-amber-400">Player Roshan</strong>! Test your Ronaldo knowledge in these 3 legendary challenges to unlock Level 2.
-      </p>
-
-      {/* INITIAL SCREEN: SHOW START BUTTON BEFORE QUIZ BEGINS */}
+    <div className="relative min-h-[calc(100vh-65px)] w-full py-8 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center justify-center">
+      
+      {/* INITIAL SCREEN: DISPLAY ONLY ATTRACTIVE, GLOWING START ⚽ BUTTON */}
       {!hasStartedQuiz ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="w-full max-w-lg p-8 rounded-3xl bg-neutral-950/80 border-2 border-amber-500/40 shadow-[0_0_40px_rgba(200,16,46,0.25)] text-center my-6 flex flex-col items-center"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="my-auto flex flex-col items-center justify-center text-center py-16"
         >
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-red-600 via-amber-500 to-yellow-400 p-[2px] shadow-[0_0_25px_rgba(200,16,46,0.5)] mb-4">
-            <div className="w-full h-full rounded-2xl bg-[#0a0a0f] flex items-center justify-center text-4xl">
-              ⚽
-            </div>
-          </div>
-
-          <h3 className="text-xl sm:text-2xl font-sports text-white mb-2">
-            3 MISSIONS AWAIT, ROSHAN!
-          </h3>
-
-          <p className="text-xs sm:text-sm text-neutral-300 mb-6 leading-relaxed">
-            Answer the 3 CR7 questions correctly to prove you are the ultimate fan and trigger the champion's SIUU celebration!
-          </p>
-
-          {/* STYLISH GLOWING START ⚽ BUTTON (Crimson Red + Champagne Gold) */}
-          <button
+          {/* Glowing START ⚽ Button (Crimson Red + Champagne Gold) */}
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleStartQuiz}
-            className="group relative inline-flex items-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full font-sports text-lg sm:text-2xl uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-amber-500 shadow-[0_0_35px_rgba(200,16,46,0.8)] hover:shadow-[0_0_55px_rgba(212,175,55,0.95)] hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-amber-300 animate-pulse"
+            className="group relative inline-flex items-center gap-3 px-12 sm:px-16 py-5 sm:py-6 rounded-full font-sports text-2xl sm:text-4xl uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-amber-500 shadow-[0_0_45px_rgba(200,16,46,0.9),0_0_25px_rgba(212,175,55,0.7)] hover:shadow-[0_0_65px_rgba(212,175,55,1)] transition-all duration-300 border-2 border-amber-300 animate-pulse"
           >
             <span>START ⚽</span>
-            <ArrowRight className="w-6 h-6 text-amber-200 group-hover:translate-x-1.5 transition-transform" />
-          </button>
+            <ArrowRight className="w-8 h-8 text-amber-200 group-hover:translate-x-2 transition-transform" />
+          </motion.button>
         </motion.div>
       ) : (
-        /* QUIZ STARTED SCREEN */
+        /* QUIZ STARTED SCREEN - 3 CR7 CHALLENGES */
         <>
+          {/* Level Header Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-4 shadow-[0_0_12px_rgba(200,16,46,0.4)]"
+          >
+            <Trophy className="w-3.5 h-3.5 text-amber-400" />
+            LEVEL 1 • 3 CR7 CHALLENGES
+          </motion.div>
           {/* Score & Progress HUD */}
           <div className="w-full max-w-xl flex items-center justify-between gap-4 mb-4 bg-neutral-900/80 px-4 py-2.5 rounded-xl border border-neutral-800">
             <div className="flex items-center gap-2">

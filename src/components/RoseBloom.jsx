@@ -297,14 +297,14 @@ export default function RoseBloom({ onProceedToAdventure, sfxEnabled }) {
           </svg>
         </motion.div>
 
-        {/* Text 1: A little surprise for someone... the special one ❤️ */}
+        {/* Text 1: A little surprise for the special one ❤️ */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
           className="text-xs sm:text-sm font-tech text-amber-300 uppercase tracking-widest mb-3 font-semibold"
         >
-          A little surprise for someone... the special one ❤️
+          A little surprise for the special one ❤️
         </motion.div>
 
         {/* Text 2: A beautiful surprise awaits you, Roshan ❤️ */}
