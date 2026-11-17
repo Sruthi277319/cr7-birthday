@@ -2,49 +2,59 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { playSiuuSound } from '../utils/audio';
 import confetti from 'canvas-confetti';
+import cr7Photo from '../assets/cr7_siuu.jpg';
 
-export default function SiuuCelebrationModal({ isOpen, onClose, sfxEnabled, title = "SIUUUUUUUU! 🐐", subtitle = "PLAYER ROSHAN • THE GOAT CELEBRATION" }) {
-  // Animation phases: 'run' (0 - 600ms), 'jump' (600 - 1300ms), 'landed' (1300ms+)
-  const [phase, setPhase] = useState('run');
-  const [impactShockwave, setImpactShockwave] = useState(false);
+export default function SiuuCelebrationModal({ 
+  isOpen, 
+  onClose, 
+  sfxEnabled, 
+  title = "SIUUUUUUUUUU! 🐐", 
+  subtitle = "PLAYER ROSHAN • THE GOAT CELEBRATION" 
+}) {
+  // Animation phases:
+  // 'intro' (0 - 650ms): Dark stadium, spotlight sweeps, image rises into view
+  // 'jump' (650 - 1350ms): Camera zooms back, slow motion leap effect
+  // 'landed' (1350ms+): Impact slam, screen shake, SIUUUU audio roar, golden fireworks explosion!
+  const [phase, setPhase] = useState('intro');
+  const [impactShake, setImpactShake] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
-      setPhase('run');
-      setImpactShockwave(false);
+      setPhase('intro');
+      setImpactShake(false);
       return;
     }
 
-    setPhase('run');
-    setImpactShockwave(false);
+    setPhase('intro');
+    setImpactShake(false);
 
-    // 1. Run -> Jump transition
+    // 1. Intro -> Jump
     const jumpTimer = setTimeout(() => {
       setPhase('jump');
-    }, 600);
+    }, 650);
 
-    // 2. Mid-air turn & Land (SIUUUU impact moment!)
+    // 2. Landing Moment (Synchronized audio & impact)
     const landTimer = setTimeout(() => {
       setPhase('landed');
-      setImpactShockwave(true);
+      setImpactShake(true);
 
       if (sfxEnabled) {
         playSiuuSound();
       }
 
-      // Burst of crimson and champagne gold stadium fireworks!
+      // Crimson & Champagne Gold Stadium Fireworks
       confetti({
-        particleCount: 130,
-        spread: 100,
+        particleCount: 150,
+        spread: 110,
         origin: { y: 0.6 },
-        colors: ['#c8102e', '#ffd700', '#ffffff', '#e60000', '#f3e5ab']
+        colors: ['#c8102e', '#ffd700', '#ffffff', '#e60000', '#f5d77f', '#b00b22']
       });
     }, 1350);
 
-    // 3. Auto-close after celebration completes
+    // 3. Auto-close after celebration sequence
     const closeTimer = setTimeout(() => {
       if (onClose) onClose();
-    }, 3800);
+    }, 4200);
 
     return () => {
       clearTimeout(jumpTimer);
@@ -57,108 +67,83 @@ export default function SiuuCelebrationModal({ isOpen, onClose, sfxEnabled, titl
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-hidden">
-        {/* Stadium Floodlights Flare Up */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md overflow-hidden">
+        
+        {/* Stadium Floodlight Flare & Ambient Beams */}
         <div 
           className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ${
-            phase === 'landed' ? 'opacity-90' : 'opacity-40'
+            phase === 'landed' ? 'opacity-95' : 'opacity-40'
           }`}
         >
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-red-600/25 rounded-full blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-400/15 rounded-full blur-[120px]" />
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-red-700/25 rounded-full blur-[110px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-amber-400/20 rounded-full blur-[130px]" />
+          
+          {/* Spotlight Beams */}
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
         </div>
 
-        {/* Screen Impact Container */}
-        <div className={`relative flex flex-col items-center justify-center max-w-xl w-full text-center ${impactShockwave ? 'animate-siuu-impact' : ''}`}>
+        {/* Screen Impact Container with camera shake on landing */}
+        <div className={`relative flex flex-col items-center justify-center max-w-2xl w-full text-center ${impactShake ? 'animate-siuu-impact' : ''}`}>
           
-          {/* Animated Footballer Character Simulation */}
-          <div className="relative w-64 h-72 flex items-center justify-center my-2">
+          {/* Primary Visual: Uploaded Cristiano Ronaldo SIUU Photo with cinematic motion */}
+          <div className="relative w-full max-w-lg aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center my-2 rounded-3xl overflow-hidden border-2 border-red-600/70 shadow-[0_0_50px_rgba(200,16,46,0.5)] bg-neutral-950">
             
-            {/* Ground Shadow & Shockwave Ring on Landing */}
-            <motion.div
+            {/* The Actual Uploaded Image Asset */}
+            <motion.img
+              src={cr7Photo}
+              alt="Cristiano Ronaldo SIUU Celebration"
+              initial={{ scale: 1.15, filter: 'brightness(0.7) contrast(1.1)' }}
               animate={
-                phase === 'jump'
-                  ? { scale: 0.4, opacity: 0.2 }
-                  : phase === 'landed'
-                  ? { scale: [1, 2.8], opacity: [0.9, 0] }
-                  : { scale: 1, opacity: 0.6 }
-              }
-              transition={{ duration: phase === 'landed' ? 0.8 : 0.4 }}
-              className="absolute bottom-6 w-36 h-8 bg-red-600/40 rounded-full blur-md border border-amber-400/60"
-            />
-
-            {/* Footballer SVG Character */}
-            <motion.div
-              initial={{ y: 20, scale: 0.9 }}
-              animate={
-                phase === 'run'
-                  ? { y: [10, 0, 10], x: [-30, 0] }
+                phase === 'intro'
+                  ? { scale: 1.05, y: 10, filter: 'brightness(0.85) contrast(1.15)' }
                   : phase === 'jump'
-                  ? { y: -70, rotateY: [0, 180, 360], scale: 1.15 }
-                  : { y: 15, scale: 1.25 }
+                  ? { scale: 1.22, y: -15, filter: 'brightness(1.1) contrast(1.2)' }
+                  : { scale: 1.0, y: 0, filter: 'brightness(1.25) contrast(1.25)' }
               }
               transition={
-                phase === 'run'
-                  ? { duration: 0.5 }
+                phase === 'intro'
+                  ? { duration: 0.65 }
                   : phase === 'jump'
-                  ? { duration: 0.75, ease: 'easeInOut' }
-                  : { type: 'spring', damping: 10, stiffness: 120 }
+                  ? { duration: 0.7, ease: 'easeInOut' }
+                  : { type: 'spring', damping: 12, stiffness: 140 }
               }
-              className="relative z-10"
-            >
-              {/* Stylized CR7 Silhouette & Jersey */}
-              <svg viewBox="0 0 160 200" className="w-48 h-60 drop-shadow-[0_0_25px_rgba(200,16,46,0.8)]">
-                {/* Head with styled hair */}
-                <circle cx="80" cy="35" r="14" fill="#fcd34d" />
-                <path d="M70 26 Q80 18 90 26 Q82 22 70 26 Z" fill="#1c1917" />
+              className="w-full h-full object-cover object-center select-none"
+            />
 
-                {phase !== 'landed' ? (
-                  /* Running / Jumping Pose */
-                  <g>
-                    {/* Torso #7 Crimson Jersey */}
-                    <path d="M64 48 L96 48 L102 105 L58 105 Z" fill="#c8102e" stroke="#ffd700" strokeWidth="2" />
-                    <text x="80" y="82" textAnchor="middle" fill="#ffd700" fontSize="24" fontWeight="900" fontFamily="Russo One">7</text>
-                    {/* Running Arms */}
-                    <path d="M64 52 L42 75 L35 95" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" fill="none" />
-                    <path d="M96 52 L118 70 L130 90" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" fill="none" />
-                    {/* Shorts */}
-                    <path d="M58 105 L102 105 L106 135 L82 135 L80 120 L78 135 L54 135 Z" fill="#ffffff" />
-                    {/* Legs in stride/jump */}
-                    <path d="M64 135 L55 170 L48 185" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" fill="none" />
-                    <path d="M94 135 L105 165 L118 180" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" fill="none" />
-                  </g>
-                ) : (
-                  /* ICONIC SIUU LANDING POSE (Arms outstretched wide behind body, chest puffed out, legs planted wide) */
-                  <g>
-                    {/* Torso with muscular chest */}
-                    <path d="M62 48 L98 48 L104 105 L56 105 Z" fill="#c8102e" stroke="#ffd700" strokeWidth="2.5" />
-                    <text x="80" y="82" textAnchor="middle" fill="#ffd700" fontSize="26" fontWeight="900" fontFamily="Russo One">7</text>
-                    
-                    {/* Wide-Arm Outstretched Wings Pose */}
-                    <path d="M62 52 L22 80 L10 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                    <path d="M98 52 L138 80 L150 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
+            {/* Cinematic Red & Gold Vignette Frame */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-black/50" />
+            <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-amber-400/40 rounded-3xl" />
 
-                    {/* White Shorts */}
-                    <path d="M56 105 L104 105 L110 135 L82 135 L80 118 L78 135 L50 135 Z" fill="#ffffff" />
+            {/* Stadium Floodlight Flash on Landing */}
+            {phase === 'landed' && (
+              <motion.div
+                initial={{ opacity: 0.8 }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                className="absolute inset-0 bg-white pointer-events-none"
+              />
+            )}
 
-                    {/* Legs Planted Strong & Wide */}
-                    <path d="M60 135 L40 170 L34 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                    <path d="M100 135 L120 170 L126 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
+            {/* Floating Live Badge */}
+            <div className="absolute top-3 left-4 flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-amber-400/60 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
+              <span className="text-[11px] font-sports text-amber-300 uppercase tracking-wider">
+                CR7 SIGNATURE SIUU
+              </span>
+            </div>
 
-                    {/* Red Match Boots */}
-                    <ellipse cx="32" cy="188" rx="8" ry="4" fill="#c8102e" />
-                    <ellipse cx="128" cy="188" rx="8" ry="4" fill="#c8102e" />
-                  </g>
-                )}
-              </svg>
-            </motion.div>
+            {/* Player Roshan Ribbon */}
+            <div className="absolute bottom-3 right-4 px-3 py-1 rounded-full bg-red-950/80 border border-red-500/70 text-xs font-tech text-white">
+              DEDICATED TO <span className="font-bold text-amber-400">ROSHAN</span>
+            </div>
           </div>
 
-          {/* Huge Glowing SIUUUU Banner on landing */}
+          {/* Huge Glowing SIUUUU Banner on Landing */}
           {phase === 'landed' && (
             <motion.div
-              initial={{ scale: 0.3, opacity: 0, y: 20 }}
-              animate={{ scale: 1.1, opacity: 1, y: 0 }}
+              initial={{ scale: 0.4, opacity: 0, y: 30 }}
+              animate={{ scale: 1.08, opacity: 1, y: 0 }}
+              transition={{ type: 'spring', damping: 10, stiffness: 120 }}
               className="mt-4"
             >
               <h2 className="text-5xl sm:text-7xl md:text-8xl font-black font-sports text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-amber-300 to-yellow-400 drop-shadow-[0_0_40px_rgba(200,16,46,0.9)] tracking-wider">
@@ -171,10 +156,10 @@ export default function SiuuCelebrationModal({ isOpen, onClose, sfxEnabled, titl
             </motion.div>
           )}
 
-          {/* Skip / Continue button */}
+          {/* Quick Skip button */}
           <button
             onClick={onClose}
-            className="mt-6 text-xs text-neutral-400 hover:text-white uppercase font-sports tracking-wider px-4 py-1.5 rounded-full bg-neutral-900 border border-neutral-700"
+            className="mt-6 text-xs text-neutral-400 hover:text-white uppercase font-sports tracking-wider px-5 py-2 rounded-full bg-neutral-900/90 border border-neutral-700 transition-colors"
           >
             TAP TO CONTINUE ➜
           </button>

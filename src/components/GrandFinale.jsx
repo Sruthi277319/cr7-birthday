@@ -3,41 +3,41 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Heart, Sparkles, Play, Pause, RotateCcw } from 'lucide-react';
 import { playFanfare, playSuccessChime, playSiuuSound, playKickSound, setBgmMode } from '../utils/audio';
 import confetti from 'canvas-confetti';
+import cr7Photo from '../assets/cr7_siuu.jpg';
 
 export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiuu }) {
   const [candlesBlown, setCandlesBlown] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [cinematicIntroPhase, setCinematicIntroPhase] = useState('blackout'); // 'blackout' -> 'siuuJump' -> 'revealed'
 
-  // Cinematic Entrance Requested:
+  // Cinematic Entrance Sequence:
   // "Have the stadium go dark for a second, then show the Ronaldo-inspired SIUUUU jump with the sound perfectly synchronized.
   // Immediately after the landing, reveal your birthday message in glowing gold!"
   useEffect(() => {
-    // Switch BGM to emotional celebratory mode
     setBgmMode('emotional');
 
     // 1. Blackout for 900ms
     const jumpTimer = setTimeout(() => {
       setCinematicIntroPhase('siuuJump');
       if (sfxEnabled) {
-        setTimeout(() => playSiuuSound(), 650);
+        setTimeout(() => playSiuuSound(), 600);
       }
     }, 900);
 
-    // 2. Land & Reveal Message in glowing gold
+    // 2. Landing & Reveal Message in glowing gold
     const revealTimer = setTimeout(() => {
       setCinematicIntroPhase('revealed');
       if (sfxEnabled) playFanfare();
 
       confetti({
-        particleCount: 140,
+        particleCount: 150,
         spread: 100,
         origin: { y: 0.5 },
         colors: ['#c8102e', '#ffd700', '#ffffff', '#f59e0b', '#e60000']
       });
-    }, 2400);
+    }, 2500);
 
-    // Periodic celebratory fireworks bursts in background
+    // Periodic celebratory fireworks in background
     const interval = setInterval(() => {
       confetti({
         particleCount: 35,
@@ -75,13 +75,13 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
   };
 
   const handleTriggerFinalSiuu = () => {
-    triggerSiuu('SIUUUUUUUU! 🐐', 'PLAYER ROSHAN • FOREVER THE GOAT! ⚽❤️');
+    triggerSiuu('SIUUUUUUUUUU! 🐐', 'PLAYER ROSHAN • FOREVER THE GOAT! ⚽❤️');
   };
 
   return (
     <div className="relative min-h-screen w-full py-12 px-4 sm:px-6 max-w-6xl mx-auto flex flex-col items-center overflow-hidden">
       
-      {/* CINEMATIC INTRO BLACKOUT & SIUU LANDING SEQUENCE */}
+      {/* CINEMATIC INTRO BLACKOUT & SIUU LANDING SEQUENCE WITH UPLOADED CR7 PHOTO */}
       {cinematicIntroPhase === 'blackout' && (
         <motion.div
           initial={{ opacity: 1 }}
@@ -99,30 +99,28 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center text-center p-4"
+          className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center text-center p-4 overflow-hidden"
         >
-          {/* Animated Mid-Air Leap into SIUU Landing */}
+          {/* Uploaded CR7 Image with Dynamic Camera Zoom and Impact */}
           <motion.div
-            initial={{ y: -80, scale: 0.8 }}
-            animate={{ y: 20, scale: 1.25 }}
-            transition={{ duration: 0.75, ease: 'easeIn' }}
-            className="w-48 h-60"
+            initial={{ scale: 0.6, y: -40, opacity: 0 }}
+            animate={{ scale: 1.05, y: 0, opacity: 1 }}
+            transition={{ duration: 0.75, ease: 'easeOut' }}
+            className="relative w-full max-w-md aspect-[16/10] rounded-3xl overflow-hidden border-2 border-red-600 shadow-[0_0_50px_#c8102e]"
           >
-            <svg viewBox="0 0 160 200" className="w-full h-full drop-shadow-[0_0_35px_#c8102e]">
-              <circle cx="80" cy="35" r="14" fill="#fcd34d" />
-              <path d="M70 26 Q80 18 90 26 Q82 22 70 26 Z" fill="#1c1917" />
-              {/* Iconic Wide-Arm Wings Pose */}
-              <path d="M62 48 L98 48 L104 105 L56 105 Z" fill="#c8102e" stroke="#ffd700" strokeWidth="2.5" />
-              <text x="80" y="82" textAnchor="middle" fill="#ffd700" fontSize="26" fontWeight="900" fontFamily="Russo One">7</text>
-              <path d="M62 52 L22 80 L10 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-              <path d="M98 52 L138 80 L150 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-              <path d="M56 105 L104 105 L110 135 L82 135 L80 118 L78 135 L50 135 Z" fill="#ffffff" />
-              <path d="M60 135 L40 170 L34 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-              <path d="M100 135 L120 170 L126 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-            </svg>
+            <img 
+              src={cr7Photo} 
+              alt="Cristiano Ronaldo SIUUU Celebration" 
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+            <div className="absolute bottom-3 inset-x-0 text-center text-xs font-tech text-amber-300 font-bold uppercase tracking-wider">
+              PORTUGAL #7 • CR7 SIGNATURE ROAR
+            </div>
           </motion.div>
-          <div className="text-5xl sm:text-7xl font-black font-sports text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-amber-300 to-yellow-400 drop-shadow-[0_0_35px_#c8102e] mt-4">
-            SIUUUUUU! 🐐
+
+          <div className="text-5xl sm:text-7xl md:text-8xl font-black font-sports text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-amber-300 to-yellow-400 drop-shadow-[0_0_35px_#c8102e] mt-5 animate-bounce">
+            SIUUUUUUUUUU! 🐐
           </div>
         </motion.div>
       )}
@@ -189,76 +187,65 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
         </h1>
       </motion.div>
 
-      {/* 2-COLUMN LAYOUT ON DESKTOP (Left: CR7 Animation | Right: Exact Birthday Message) */}
+      {/* 2-COLUMN LAYOUT ON DESKTOP (Left: Uploaded CR7 Photo & Cake | Right: Exact Birthday Message) */}
       <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
-        {/* LEFT COLUMN: CRISTIANO RONALDO BIRTHDAY CELEBRATION ANIMATION */}
+        {/* LEFT COLUMN: CRISTIANO RONALDO BIRTHDAY CELEBRATION VISUAL */}
         <div className="lg:col-span-5 flex flex-col items-center w-full">
           <div className="w-full rounded-3xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-black border border-red-900/60 p-5 shadow-2xl relative overflow-hidden flex flex-col items-center">
             
-            {/* Top Badge */}
+            {/* Top Bar with Controls */}
             <div className="w-full flex items-center justify-between border-b border-white/10 pb-3 mb-4">
-              <span className="text-xs font-tech text-amber-400 font-bold uppercase tracking-wider">
-                CR7 SIGNATURE ARENA
+              <span className="text-xs font-tech text-amber-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                CR7 SIUUUU REFERENCE
               </span>
               <button
                 onClick={() => setIsVideoPlaying(!isVideoPlaying)}
                 className="flex items-center gap-1 text-[11px] font-sports text-neutral-300 hover:text-white bg-neutral-950 px-2.5 py-1 rounded-md border border-neutral-800"
               >
                 {isVideoPlaying ? <Pause className="w-3 h-3 text-red-500" /> : <Play className="w-3 h-3 text-emerald-400" />}
-                <span>{isVideoPlaying ? 'PAUSE ANIMATION' : 'PLAY ANIMATION'}</span>
+                <span>{isVideoPlaying ? 'PAUSE EFFECTS' : 'PLAY EFFECTS'}</span>
               </button>
             </div>
 
-            {/* Cinematic Footballer Animation Stage */}
-            <div className="relative w-full h-72 sm:h-80 rounded-2xl bg-gradient-to-b from-[#090b10] to-[#040507] border border-neutral-800 flex flex-col items-center justify-center overflow-hidden">
-              {/* Stadium Floodlight Beams in Animation Stage */}
-              <div className="absolute top-0 inset-x-0 h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/15 via-red-900/20 to-transparent pointer-events-none" />
-
-              {/* Looping CR7 Celebration Character */}
-              <motion.div
+            {/* Visual Stage displaying Uploaded Image */}
+            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-amber-400/50 shadow-[0_0_30px_rgba(200,16,46,0.35)] bg-neutral-950 flex items-center justify-center">
+              <motion.img
+                src={cr7Photo}
+                alt="Cristiano Ronaldo SIUU Celebration"
                 animate={
                   isVideoPlaying
                     ? {
-                        y: [0, -25, 0, 5, 0],
-                        rotateY: [0, 180, 360, 360, 0],
-                        scale: [1, 1.15, 1, 1.05, 1],
+                        scale: [1, 1.05, 1],
+                        filter: ['brightness(1) contrast(1.1)', 'brightness(1.15) contrast(1.2)', 'brightness(1) contrast(1.1)'],
                       }
                     : {}
                 }
                 transition={{
                   repeat: Infinity,
-                  duration: 4.5,
+                  duration: 4,
                   ease: 'easeInOut',
                 }}
-                className="relative z-10"
-              >
-                <svg viewBox="0 0 160 200" className="w-44 h-56 drop-shadow-[0_0_30px_rgba(200,16,46,0.7)]">
-                  <circle cx="80" cy="35" r="14" fill="#fcd34d" />
-                  <path d="M70 26 Q80 18 90 26 Q82 22 70 26 Z" fill="#1c1917" />
-                  {/* #7 Crimson Jersey with ROSHAN Spirit */}
-                  <path d="M62 48 L98 48 L104 105 L56 105 Z" fill="#c8102e" stroke="#ffd700" strokeWidth="2.5" />
-                  <text x="80" y="82" textAnchor="middle" fill="#ffd700" fontSize="26" fontWeight="900" fontFamily="Russo One">7</text>
-                  <path d="M62 52 L22 80 L10 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                  <path d="M98 52 L138 80 L150 100" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                  <path d="M56 105 L104 105 L110 135 L82 135 L80 118 L78 135 L50 135 Z" fill="#ffffff" />
-                  <path d="M60 135 L40 170 L34 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                  <path d="M100 135 L120 170 L126 186" stroke="#fcd34d" strokeWidth="9" strokeLinecap="round" fill="none" />
-                </svg>
-              </motion.div>
+                className="w-full h-full object-cover object-center select-none"
+              />
 
-              {/* Golden Trophy floating beside footballer */}
+              {/* Red & Gold Lighting Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+
+              {/* Floating Golden Trophy Badge */}
               <motion.div
-                animate={{ y: [-5, 5, -5], rotate: [-4, 4, -4] }}
-                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                className="absolute bottom-4 right-4 p-2 rounded-xl bg-black/60 border border-amber-400/40"
+                animate={{ y: [-3, 3, -3] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+                className="absolute bottom-3 right-3 p-2 rounded-xl bg-black/70 border border-amber-400/60 backdrop-blur-md flex items-center gap-1.5"
               >
-                <Trophy className="w-6 h-6 text-amber-400" />
+                <Trophy className="w-4 h-4 text-amber-400" />
+                <span className="text-[10px] font-sports text-amber-300">GOAT #7</span>
               </motion.div>
 
-              {/* Stadium Fireworks overlay */}
-              <div className="absolute top-3 left-4 text-xs font-tech text-amber-300">
-                ✨ GOAT ARENA
+              {/* Caption Tag */}
+              <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-red-950/80 border border-red-500/60 text-[10px] font-tech text-white">
+                ROSHAN'S HERO • CR7
               </div>
             </div>
 
