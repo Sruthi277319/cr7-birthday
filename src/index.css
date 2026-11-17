@@ -26,6 +26,10 @@
   font-family: 'Playfair Display', serif;
 }
 
+.font-handwriting {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+
 /* Elegant Champagne Gold gradient */
 .text-champagne-gold {
   background: linear-gradient(135deg, #FFF8DC 0%, #F5D77F 30%, #D4AF37 70%, #AA771C 100%);

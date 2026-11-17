@@ -403,10 +403,113 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
                 </span>
                 . Keep rocking like CR7! 🐐⚽❤️♾️
               </motion.p>
+
+              {/* SPECIAL SIGNATURE SECTION: HEARTFELT HANDWRITTEN ENDING */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1.7 }}
+                className="relative my-8 py-7 px-4 sm:px-8 rounded-2xl bg-gradient-to-b from-neutral-950/90 via-[#0a0608]/90 to-[#180509]/85 border border-amber-500/40 shadow-[0_0_35px_rgba(212,175,55,0.18)] backdrop-blur-md flex flex-col items-center text-center overflow-hidden"
+              >
+                {/* Subtle Floating Golden Sparkles and Hearts */}
+                <motion.span
+                  animate={{ y: [-4, 4, -4], opacity: [0.4, 0.9, 0.4], rotate: [0, 15, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute top-3 left-4 text-amber-400 text-sm sm:text-base pointer-events-none select-none"
+                >
+                  ✨
+                </motion.span>
+                <motion.span
+                  animate={{ y: [4, -4, 4], opacity: [0.35, 0.85, 0.35], scale: [1, 1.15, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                  className="absolute top-4 right-5 text-red-400 text-xs sm:text-sm pointer-events-none select-none"
+                >
+                  ❤️
+                </motion.span>
+                <motion.span
+                  animate={{ y: [-3, 3, -3], opacity: [0.3, 0.75, 0.3] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                  className="absolute bottom-3 left-5 text-red-400 text-xs pointer-events-none select-none"
+                >
+                  ❤️
+                </motion.span>
+                <motion.span
+                  animate={{ y: [3, -3, 3], opacity: [0.4, 0.9, 0.4], rotate: [0, -15, 0] }}
+                  transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+                  className="absolute bottom-4 right-5 text-amber-300 text-sm sm:text-base pointer-events-none select-none"
+                >
+                  ✨
+                </motion.span>
+
+                {/* Top Divider Line */}
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0.8 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.7, delay: 1.8 }}
+                  className="text-amber-400/90 font-mono tracking-widest text-xs sm:text-sm select-none drop-shadow-[0_0_8px_rgba(255,215,0,0.5)] mb-4"
+                >
+                  ━━━━━━━━━━━━━━━━━━━━
+                </motion.div>
+
+                {/* Poem Lines (Revealed one after another with gentle fade-in) */}
+                <div className="font-handwriting font-semibold text-xl sm:text-2xl md:text-[1.7rem] text-white tracking-wide space-y-1 sm:space-y-1.5 drop-shadow-[0_0_10px_rgba(255,255,255,0.35)]">
+                  {/* Line 1: Gentle fade-in */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 2.2, ease: 'easeOut' }}
+                    className="leading-snug"
+                  >
+                    MAY YOUR WORLD BE FILLED
+                  </motion.div>
+
+                  {/* Line 2: Reveal next */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 2.7, ease: 'easeOut' }}
+                    className="leading-snug"
+                  >
+                    WITH ALL THE HAPPINESS
+                  </motion.div>
+
+                  {/* Line 3: Reveal next */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 3.2, ease: 'easeOut' }}
+                    className="leading-snug text-neutral-100"
+                  >
+                    MY HEART WISHES FOR YOU,
+                  </motion.div>
+                </div>
+
+                {/* Line 4: Signature with Golden Glow & Preserved Spacing */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 1.0, delay: 3.8, ease: 'easeOut' }}
+                  className="my-3 sm:my-4"
+                >
+                  <span className="whitespace-pre font-handwriting font-bold text-2xl sm:text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-400 drop-shadow-[0_0_20px_rgba(255,215,0,0.85)] tracking-wide inline-block">
+                    {"  — SRUTHI 🫶🫂"}
+                  </span>
+                </motion.div>
+
+                {/* Bottom Divider Line */}
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0.8 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.7, delay: 4.3 }}
+                  className="text-amber-400/90 font-mono tracking-widest text-xs sm:text-sm select-none drop-shadow-[0_0_8px_rgba(255,215,0,0.5)] mt-1"
+                >
+                  ━━━━━━━━━━━━━━━━━━━━
+                </motion.div>
+              </motion.div>
             </div>
 
             {/* Stamp Row */}
-            <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-red-900/30">
+            <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-red-900/30">
               <span className="text-xl animate-bounce" style={{ animationDelay: '0ms' }}>❤️</span>
               <span className="text-xl animate-bounce" style={{ animationDelay: '150ms' }}>🫂</span>
               <span className="text-xl animate-bounce" style={{ animationDelay: '300ms' }}>🫶</span>
