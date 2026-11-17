@@ -4,17 +4,38 @@ import StadiumBackground from './components/StadiumBackground';
 import AudioControls from './components/AudioControls';
 import ProgressHUD from './components/ProgressHUD';
 import OpeningScreen from './components/OpeningScreen';
-import Level1Beginning from './components/Level1Beginning';
-import Level2Challenge from './components/Level2Challenge';
-import Level3RoadToGreatness from './components/Level3RoadToGreatness';
+import Level1Quiz from './components/Level1Quiz';
+import Level2RoadToGreatness from './components/Level2RoadToGreatness';
+import Level3FootballArena from './components/Level3FootballArena';
 import Level4LockerRoom from './components/Level4LockerRoom';
 import GrandFinale from './components/GrandFinale';
+import SiuuCelebrationModal from './components/SiuuCelebrationModal';
+import { setBgmMode } from './utils/audio';
 
 export default function App() {
-  // Current active screen: 0 (Opening), 1 (Level 1), 2 (Level 2), 3 (Level 3), 4 (Level 4), 5 (Grand Finale)
+  // Current active screen: 0 (Opening), 1 (Level 1: Quiz), 2 (Level 2: Road to Greatness), 3 (Level 3: Football Arena), 4 (Level 4: Secret Gift), 5 (Grand Finale)
   const [currentStage, setCurrentStage] = useState(0);
   const [maxUnlockedLevel, setMaxUnlockedLevel] = useState(1);
   const [sfxEnabled, setSfxEnabled] = useState(true);
+
+  // Global SIUU Celebration Modal State
+  const [siuuModal, setSiuuModal] = useState({
+    isOpen: false,
+    title: 'SIUUUUUUUU! 🐐',
+    subtitle: 'PLAYER ROSHAN • THE GOAT CELEBRATION'
+  });
+
+  const triggerSiuu = (title, subtitle) => {
+    setSiuuModal({
+      isOpen: true,
+      title: title || 'SIUUUUUUUU! 🐐',
+      subtitle: subtitle || 'PLAYER ROSHAN • THE GOAT CELEBRATION'
+    });
+  };
+
+  const closeSiuu = () => {
+    setSiuuModal((prev) => ({ ...prev, isOpen: false }));
+  };
 
   // Level Completion Handlers
   const handleCompleteLevel = (levelNum) => {
@@ -25,12 +46,22 @@ export default function App() {
 
   const handleNextLevel = (nextLevelNum) => {
     setCurrentStage(nextLevelNum);
+    if (nextLevelNum === 5) {
+      setBgmMode('emotional');
+    } else {
+      setBgmMode('stadium');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectLevel = (levelNum) => {
     if (levelNum <= maxUnlockedLevel) {
       setCurrentStage(levelNum);
+      if (levelNum === 5) {
+        setBgmMode('emotional');
+      } else {
+        setBgmMode('stadium');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -38,24 +69,25 @@ export default function App() {
   const handleRestartAdventure = () => {
     setCurrentStage(0);
     setMaxUnlockedLevel(1);
+    setBgmMode('stadium');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#050508] text-white overflow-x-hidden">
+    <div className="relative min-h-screen w-full bg-[#06070a] text-white overflow-x-hidden selection:bg-red-700 selection:text-white">
       {/* Stadium Environment Background */}
       <StadiumBackground 
         lightsOn={currentStage > 0} 
         showPitch={currentStage < 4}
       />
 
-      {/* Floating Audio Controls (Music & SFX) */}
+      {/* Floating Audio Controls (Music, Volume & SFX) */}
       <AudioControls 
         sfxEnabled={sfxEnabled} 
         setSfxEnabled={setSfxEnabled} 
       />
 
-      {/* Persistent Progress HUD Header (Shown once inside the adventure, levels 1 to 4) */}
+      {/* Persistent Progress HUD Header (Shown once inside adventure, levels 1 to 4) */}
       {currentStage >= 1 && currentStage <= 4 && (
         <ProgressHUD
           currentLevel={currentStage}
@@ -63,6 +95,15 @@ export default function App() {
           onSelectLevel={handleSelectLevel}
         />
       )}
+
+      {/* Global SIUU Celebration Modal */}
+      <SiuuCelebrationModal
+        isOpen={siuuModal.isOpen}
+        onClose={closeSiuu}
+        sfxEnabled={sfxEnabled}
+        title={siuuModal.title}
+        subtitle={siuuModal.subtitle}
+      />
 
       {/* Active Screen Transition */}
       <main className="relative z-10 w-full min-h-screen">
@@ -90,11 +131,12 @@ export default function App() {
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5 }}
             >
-              <Level1Beginning
+              <Level1Quiz
                 onCompleteLevel={handleCompleteLevel}
                 isCompleted={maxUnlockedLevel > 1}
                 onNextLevel={handleNextLevel}
                 sfxEnabled={sfxEnabled}
+                triggerSiuu={triggerSiuu}
               />
             </motion.div>
           )}
@@ -107,11 +149,12 @@ export default function App() {
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5 }}
             >
-              <Level2Challenge
+              <Level2RoadToGreatness
                 onCompleteLevel={handleCompleteLevel}
                 isCompleted={maxUnlockedLevel > 2}
                 onNextLevel={handleNextLevel}
                 sfxEnabled={sfxEnabled}
+                triggerSiuu={triggerSiuu}
               />
             </motion.div>
           )}
@@ -124,11 +167,12 @@ export default function App() {
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5 }}
             >
-              <Level3RoadToGreatness
+              <Level3FootballArena
                 onCompleteLevel={handleCompleteLevel}
                 isCompleted={maxUnlockedLevel > 3}
                 onNextLevel={handleNextLevel}
                 sfxEnabled={sfxEnabled}
+                triggerSiuu={triggerSiuu}
               />
             </motion.div>
           )}
@@ -144,6 +188,7 @@ export default function App() {
               <Level4LockerRoom
                 onUnlockSurprise={() => handleNextLevel(5)}
                 sfxEnabled={sfxEnabled}
+                triggerSiuu={triggerSiuu}
               />
             </motion.div>
           )}
@@ -159,6 +204,7 @@ export default function App() {
               <GrandFinale
                 onRestartAdventure={handleRestartAdventure}
                 sfxEnabled={sfxEnabled}
+                triggerSiuu={triggerSiuu}
               />
             </motion.div>
           )}

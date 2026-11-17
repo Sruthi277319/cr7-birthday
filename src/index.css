@@ -8,7 +8,7 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Montserrat', sans-serif;
-    background-color: #050507;
+    background-color: #06070a;
     color: #ffffff;
   }
 }
@@ -26,74 +26,110 @@
   font-family: 'Playfair Display', serif;
 }
 
-/* Metallic Gold text gradient */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FFF6BD 0%, #F5D061 25%, #E6B800 50%, #FFD700 75%, #D4AF37 100%);
+/* Elegant Champagne Gold gradient */
+.text-champagne-gold {
+  background: linear-gradient(135deg, #FFF8DC 0%, #F5D77F 30%, #D4AF37 70%, #AA771C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* CR7 Red text gradient */
-.text-cr7-gradient {
-  background: linear-gradient(135deg, #FF6B6B 0%, #FF1A1A 40%, #D40000 80%, #900000 100%);
+/* Deep Crimson Red gradient */
+.text-crimson-gradient {
+  background: linear-gradient(135deg, #FF6B6B 0%, #E60000 40%, #C8102E 80%, #7A0012 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Glowing text effects */
+/* Subtle, classy glows (avoiding overwhelming cartoon neon) */
 .glow-gold {
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.5), 0 0 25px rgba(212, 175, 55, 0.25);
 }
 
-.glow-red {
-  text-shadow: 0 0 10px rgba(255, 30, 30, 0.8), 0 0 30px rgba(200, 16, 46, 0.6), 0 0 50px rgba(180, 0, 0, 0.4);
+.glow-crimson {
+  text-shadow: 0 0 12px rgba(200, 16, 46, 0.6), 0 0 28px rgba(139, 0, 0, 0.4);
 }
 
-.glow-box-red {
-  box-shadow: 0 0 25px -5px rgba(230, 0, 0, 0.5), 0 0 10px 0 rgba(230, 0, 0, 0.3);
+.glow-box-crimson {
+  box-shadow: 0 8px 30px -5px rgba(200, 16, 46, 0.35), 0 0 12px 0 rgba(200, 16, 46, 0.2);
 }
 
 .glow-box-gold {
-  box-shadow: 0 0 30px -5px rgba(255, 215, 0, 0.5), 0 0 12px 0 rgba(255, 215, 0, 0.3);
+  box-shadow: 0 8px 30px -5px rgba(212, 175, 55, 0.35), 0 0 12px 0 rgba(212, 175, 55, 0.2);
 }
 
-/* Stadium light beam animations */
+/* Glassmorphism Luxury Panel */
+.glass-panel {
+  background: rgba(14, 15, 20, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-gold {
+  background: rgba(18, 16, 12, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass-panel-crimson {
+  background: rgba(22, 10, 12, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(200, 16, 46, 0.25);
+}
+
+/* Screen shake for SIUU impact */
+@keyframes siuu-shake {
+  0% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-3px, 4px) scale(1.02); }
+  40% { transform: translate(4px, -3px) scale(1.01); }
+  60% { transform: translate(-2px, 2px) scale(1.005); }
+  80% { transform: translate(2px, -1px) scale(1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-siuu-impact {
+  animation: siuu-shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Stadium Floodlight sweep */
 @keyframes floodlight-sweep {
   0% {
-    transform: rotate(-25deg) scaleY(1);
-    opacity: 0.35;
+    transform: rotate(-22deg) scaleY(1);
+    opacity: 0.3;
   }
   50% {
-    transform: rotate(25deg) scaleY(1.1);
-    opacity: 0.6;
+    transform: rotate(22deg) scaleY(1.08);
+    opacity: 0.5;
   }
   100% {
-    transform: rotate(-25deg) scaleY(1);
-    opacity: 0.35;
+    transform: rotate(-22deg) scaleY(1);
+    opacity: 0.3;
   }
 }
 
 .animate-floodlight-left {
-  animation: floodlight-sweep 8s ease-in-out infinite;
+  animation: floodlight-sweep 9s ease-in-out infinite;
   transform-origin: top left;
 }
 
 .animate-floodlight-right {
-  animation: floodlight-sweep 8s ease-in-out infinite reverse;
+  animation: floodlight-sweep 9s ease-in-out infinite reverse;
   transform-origin: top right;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090c;
+  background: #08090d;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a0808;
+  background: #231215;
   border-radius: 4px;
-  border: 1px solid rgba(230, 0, 0, 0.3);
+  border: 1px solid rgba(200, 16, 46, 0.25);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #c8102e;

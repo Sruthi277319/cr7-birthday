@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MOTIVATIONAL_WORDS } from '../data/adventureData';
 import { Trophy, Target, ArrowRight, Zap, Sparkles } from 'lucide-react';
-import { playKickSound, playGoalRoar, playFanfare, playSuccessChime, playSiuuSound } from '../utils/audio';
+import { playKickSound, playGoalRoar, playSuccessChime, playPostHitSound } from '../utils/audio';
 import confetti from 'canvas-confetti';
 
-export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, onNextLevel, sfxEnabled }) {
+export default function Level2RoadToGreatness({ onCompleteLevel, isCompleted, onNextLevel, sfxEnabled, triggerSiuu }) {
   const [shotState, setShotState] = useState('idle'); // 'idle' | 'shooting' | 'scored'
-  const [targetCorner, setTargetCorner] = useState('top-right'); // 'top-left' | 'top-right' | 'bottom-left'
+  const [targetCorner, setTargetCorner] = useState('top-right');
   const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [claimedVictory, setClaimedVictory] = useState(false);
 
@@ -23,14 +23,13 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
       setShotState('scored');
       if (sfxEnabled) {
         playGoalRoar();
-        playSiuuSound();
       }
 
       confetti({
-        particleCount: 100,
+        particleCount: 80,
         spread: 80,
         origin: { y: 0.4 },
-        colors: ['#e60000', '#ffd700', '#ffffff']
+        colors: ['#c8102e', '#ffd700', '#ffffff']
       });
     }, 700);
   };
@@ -48,25 +47,23 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
   const handleClaimVictory = () => {
     if (sfxEnabled) {
       playSuccessChime();
-      playFanfare();
     }
 
     confetti({
       particleCount: 90,
       spread: 75,
       origin: { y: 0.6 },
-      colors: ['#ffd700', '#e60000', '#ffffff', '#ffaa00']
+      colors: ['#ffd700', '#c8102e', '#ffffff', '#f59e0b']
     });
 
     setClaimedVictory(true);
-    onCompleteLevel(3);
+    onCompleteLevel(2);
 
     setTimeout(() => {
-      onNextLevel(4);
+      onNextLevel(3);
     }, 2000);
   };
 
-  // Ball trajectory coordinates based on target
   const getBallTargetCoords = () => {
     if (targetCorner === 'top-left') return { x: -140, y: -130, scale: 0.4, rotate: 720 };
     if (targetCorner === 'bottom-left') return { x: -120, y: -30, scale: 0.5, rotate: 540 };
@@ -79,27 +76,27 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-2 shadow-[0_0_12px_rgba(230,0,0,0.4)]"
+        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-2 shadow-[0_0_12px_rgba(200,16,46,0.4)]"
       >
         <Trophy className="w-3.5 h-3.5 text-amber-400" />
-        LEVEL 3 OF 4 • STADIUM SHOOTOUT
+        LEVEL 2 OF 4 • THE ROAD TO GREATNESS
       </motion.div>
 
       {/* Main Heading */}
       <motion.h2
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-3xl sm:text-5xl md:text-6xl font-sports text-center tracking-wide uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-red-500 drop-shadow-[0_0_30px_rgba(230,0,0,0.7)] mb-2"
+        className="text-3xl sm:text-5xl md:text-6xl font-sports text-center tracking-wide uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-red-500 drop-shadow-[0_0_30px_rgba(200,16,46,0.7)] mb-2"
       >
         NOTHING IS IMPOSSIBLE
       </motion.h2>
 
-      <p className="text-neutral-400 text-sm sm:text-base text-center max-w-xl mb-6">
-        Step up to the penalty spot, Player 007. Pick your corner and blast the ball into the top corner like CR7!
+      <p className="text-neutral-300 text-sm sm:text-base text-center max-w-xl mb-6">
+        Step onto the pitch, <strong className="text-amber-400">Player Roshan</strong>. Aim for the top corner and strike the ball with pure CR7 power!
       </p>
 
       {/* Interactive Stadium Goal Experience */}
-      <div className="relative w-full max-w-2xl h-72 sm:h-80 rounded-2xl bg-gradient-to-b from-neutral-900 via-neutral-950 to-black border-2 border-red-900/60 overflow-hidden shadow-[0_0_40px_rgba(230,0,0,0.3)] flex flex-col items-center justify-between p-4 mb-8">
+      <div className="relative w-full max-w-2xl h-72 sm:h-80 rounded-2xl bg-gradient-to-b from-neutral-900 via-neutral-950 to-black border-2 border-red-900/60 overflow-hidden shadow-[0_0_40px_rgba(200,16,46,0.25)] flex flex-col items-center justify-between p-4 mb-8">
         {/* Stadium Floodlight Pulses */}
         <div className="absolute top-0 inset-x-0 h-1/2 bg-gradient-to-b from-red-600/10 via-amber-400/5 to-transparent pointer-events-none" />
 
@@ -155,18 +152,18 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
             </>
           )}
 
-          {/* Scored Goal Fireworks & Banner */}
+          {/* Scored Goal Banner */}
           {shotState === 'scored' && (
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xs"
             >
-              <div className="text-3xl sm:text-5xl font-sports font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-300 to-yellow-400 drop-shadow-[0_0_25px_#e60000] animate-bounce">
+              <div className="text-3xl sm:text-5xl font-sports font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-300 to-yellow-400 drop-shadow-[0_0_25px_#c8102e] animate-bounce">
                 GOAAALLL! ⚽💥
               </div>
               <div className="text-sm font-sports text-amber-400 tracking-wider">
-                SIUUUUUU! TOP BINS BY PLAYER 007!
+                TOP BINS BY PLAYER ROSHAN!
               </div>
             </motion.div>
           )}
@@ -174,7 +171,6 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
 
         {/* Penalty Spot & Interactive Ball */}
         <div className="relative w-full flex items-center justify-center pb-2">
-          {/* White Penalty Spot */}
           <div className="w-3 h-3 rounded-full bg-white shadow-[0_0_10px_#fff]" />
 
           {/* The Football */}
@@ -194,9 +190,9 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
             }
             onClick={() => shotState === 'idle' && handleShoot('top-right')}
             className={`absolute bottom-3 cursor-pointer group ${shotState === 'idle' ? 'hover:scale-110' : ''}`}
-            title="Click to Shoot!"
+            title="Click to Strike!"
           >
-            <div className="w-12 h-12 rounded-full bg-white border-2 border-neutral-300 shadow-[0_0_20px_rgba(255,255,255,0.8),0_0_35px_#e60000] flex items-center justify-center overflow-hidden">
+            <div className="w-12 h-12 rounded-full bg-white border-2 border-neutral-300 shadow-[0_0_20px_rgba(255,255,255,0.8),0_0_35px_#c8102e] flex items-center justify-center overflow-hidden">
               <svg viewBox="0 0 100 100" className="w-full h-full">
                 <polygon points="50,28 69,42 62,65 38,65 31,42" fill="#111" />
                 <line x1="50" y1="28" x2="50" y2="10" stroke="#111" strokeWidth="4" />
@@ -219,7 +215,7 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
       <div className="w-full max-w-xl my-4 text-center">
         <div className="text-xs font-tech text-red-500 font-bold uppercase tracking-widest mb-3 flex items-center justify-center gap-1.5">
           <Zap className="w-4 h-4 text-amber-400" />
-          CR7 MINDSET PROTOCOL
+          CR7 CHAMPION MINDSET
         </div>
 
         {/* Word Display Stream */}
@@ -233,7 +229,7 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <h3 className="text-4xl sm:text-6xl font-black font-sports tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-red-500 drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
+              <h3 className="text-4xl sm:text-6xl font-black font-sports tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-red-500 drop-shadow-[0_0_25px_rgba(212,175,55,0.7)]">
                 {MOTIVATIONAL_WORDS[activeWordIdx].word}
               </h3>
               <p className="text-neutral-300 text-sm sm:text-base font-medium mt-2">
@@ -259,21 +255,21 @@ export default function Level3RoadToGreatness({ onCompleteLevel, isCompleted, on
         </div>
       </div>
 
-      {/* Claim Victory Button & Level 3 Completed */}
+      {/* Claim Victory Button & Level 2 Completed */}
       <div className="mt-6 text-center">
         {claimedVictory ? (
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1.1, opacity: 1 }}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-sports text-xl tracking-wider shadow-[0_0_40px_rgba(255,215,0,0.9)] border-2 border-white"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-sports text-xl tracking-wider shadow-[0_0_40px_rgba(212,175,55,0.9)] border-2 border-white"
           >
             <Trophy className="w-6 h-6 text-black animate-bounce" />
-            LEVEL 3 COMPLETED! CHAMPION! 🏆
+            LEVEL 2 COMPLETED! CHAMPION! 🏆
           </motion.div>
         ) : (
           <button
             onClick={handleClaimVictory}
-            className="group relative inline-flex items-center gap-3 px-8 sm:px-12 py-4 rounded-full font-sports text-lg sm:text-xl uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-amber-500 shadow-[0_0_30px_rgba(230,0,0,0.7)] hover:shadow-[0_0_45px_rgba(255,215,0,0.9)] hover:scale-105 active:scale-95 transition-all duration-300 border border-amber-300"
+            className="group relative inline-flex items-center gap-3 px-8 sm:px-12 py-4 rounded-full font-sports text-lg sm:text-xl uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-amber-500 shadow-[0_0_25px_rgba(200,16,46,0.7)] hover:shadow-[0_0_45px_rgba(212,175,55,0.9)] hover:scale-105 active:scale-95 transition-all duration-300 border border-amber-300"
           >
             <span>CLAIM YOUR VICTORY</span>
             <Sparkles className="w-5 h-5 text-amber-200 group-hover:rotate-180 transition-transform" />

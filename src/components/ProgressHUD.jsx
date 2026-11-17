@@ -3,25 +3,25 @@ import { Shield, Trophy, CheckCircle, Lock } from 'lucide-react';
 
 export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLevel }) {
   const levels = [
-    { num: 1, name: 'TIMELINE', label: 'LEVEL 1/4' },
-    { num: 2, name: 'TRIVIA', label: 'LEVEL 2/4' },
-    { num: 3, name: 'SHOOTOUT', label: 'LEVEL 3/4' },
-    { num: 4, name: 'SURPRISE', label: 'LEVEL 4/4' },
+    { num: 1, name: 'CR7 QUIZ', label: 'LEVEL 1' },
+    { num: 2, name: 'ROAD TO GREATNESS', label: 'LEVEL 2' },
+    { num: 3, name: 'FOOTBALL GAME', label: 'LEVEL 3' },
+    { num: 4, name: 'SECRET GIFT', label: 'LEVEL 4' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-black/70 border-b border-red-900/40 px-3 py-2.5 sm:px-6">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#08090d]/85 border-b border-red-900/30 px-3 py-2.5 sm:px-6">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-        {/* Player Badge */}
+        {/* Player Badge: PLAYER ROSHAN */}
         <div className="flex items-center gap-2">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-amber-600 border border-amber-400 shadow-[0_0_12px_rgba(230,0,0,0.6)]">
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-amber-600 border border-amber-400 shadow-[0_0_12px_rgba(200,16,46,0.5)]">
             <Shield className="w-5 h-5 text-white" />
-            <span className="absolute text-[9px] font-black font-tech text-white">007</span>
+            <span className="absolute text-[8px] font-black font-tech text-white">#7</span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-black font-tech tracking-wider text-red-500">PLAYER 007</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40">
+              <span className="text-xs font-black font-tech tracking-wider text-red-500">PLAYER ROSHAN</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">
                 GOAT STATUS 🐐
               </span>
             </div>
@@ -31,7 +31,7 @@ export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLe
           </div>
         </div>
 
-        {/* Level Trackers: 1/4, 2/4, 3/4, 4/4 */}
+        {/* Level Trackers: Level 1, 2, 3, 4 */}
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto max-w-full py-1">
           {levels.map((lvl) => {
             const isCompleted = maxUnlockedLevel > lvl.num || currentLevel > lvl.num;
@@ -43,14 +43,14 @@ export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLe
                 key={lvl.num}
                 disabled={!isUnlocked}
                 onClick={() => onSelectLevel(lvl.num)}
-                className={`group flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 rounded-md text-xs font-sports transition-all ${
+                className={`group flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 rounded-md text-xs font-sports transition-all border ${
                   isCurrent
-                    ? 'bg-gradient-to-r from-red-600 to-red-800 text-white shadow-[0_0_15px_rgba(230,0,0,0.7)] border border-red-400'
+                    ? 'bg-gradient-to-r from-red-600 to-red-800 text-white shadow-[0_0_15px_rgba(200,16,46,0.6)] border-red-400'
                     : isCompleted
-                    ? 'bg-neutral-900/90 text-amber-400 border border-amber-500/40 hover:bg-neutral-800'
+                    ? 'bg-neutral-900/90 text-amber-400 border border-amber-500/30 hover:bg-neutral-800'
                     : isUnlocked
                     ? 'bg-neutral-900 text-neutral-300 border border-neutral-700 hover:border-neutral-500'
-                    : 'bg-neutral-950/60 text-neutral-600 border border-neutral-800/60 cursor-not-allowed opacity-60'
+                    : 'bg-neutral-950/60 text-neutral-600 border border-neutral-800/60 cursor-not-allowed opacity-50'
                 }`}
                 title={isUnlocked ? `Go to ${lvl.label}` : 'Locked level'}
               >
@@ -74,7 +74,7 @@ export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLe
       {/* Progress Bar Line */}
       <div className="w-full h-1 bg-neutral-900 mt-2 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-red-600 via-amber-500 to-amber-300 transition-all duration-700 shadow-[0_0_10px_#e60000]"
+          className="h-full bg-gradient-to-r from-red-600 via-amber-500 to-amber-300 transition-all duration-700 shadow-[0_0_10px_#c8102e]"
           style={{ width: `${Math.min(100, (maxUnlockedLevel / 4) * 100)}%` }}
         />
       </div>

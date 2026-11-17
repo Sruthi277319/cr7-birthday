@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CR7_CHALLENGES } from '../data/adventureData';
 import { Trophy, CheckCircle2, XCircle, Sparkles, ArrowRight, RotateCcw, Flame } from 'lucide-react';
-import { playSuccessChime, playWrongBuzz, playSiuuSound, playKickSound } from '../utils/audio';
+import { playSuccessChime, playWrongBuzz, playKickSound } from '../utils/audio';
 import confetti from 'canvas-confetti';
 
-export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLevel, sfxEnabled }) {
+export default function Level1Quiz({ onCompleteLevel, isCompleted, onNextLevel, sfxEnabled, triggerSiuu }) {
   const [currentChallengeIdx, setCurrentChallengeIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -30,7 +30,7 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
         particleCount: 50,
         spread: 60,
         origin: { y: 0.7 },
-        colors: ['#ffd700', '#e60000', '#ffffff']
+        colors: ['#ffd700', '#c8102e', '#ffffff']
       });
     } else {
       if (sfxEnabled) playWrongBuzz();
@@ -46,19 +46,13 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
     } else {
       // Completed all 3!
       setCompletedAll(true);
-      if (sfxEnabled) playSiuuSound();
+      onCompleteLevel(1);
 
-      confetti({
-        particleCount: 120,
-        spread: 90,
-        origin: { y: 0.5 },
-        colors: ['#ffd700', '#e60000', '#ffffff', '#ff9900']
-      });
-
-      onCompleteLevel(2);
-      setTimeout(() => {
-        onNextLevel(3);
-      }, 2500);
+      // Trigger synchronized SIUUUU celebration animation & sound!
+      triggerSiuu(
+        'SIUUUU! CHALLENGE COMPLETED! 🐐',
+        'LEVEL 1 COMPLETED! 🏆 • ROSHAN CR7 QUIZ MASTER'
+      );
     }
   };
 
@@ -77,29 +71,29 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-2 shadow-[0_0_12px_rgba(230,0,0,0.4)]"
+        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-sports uppercase tracking-wider mb-2 shadow-[0_0_12px_rgba(200,16,46,0.4)]"
       >
         <Trophy className="w-3.5 h-3.5 text-amber-400" />
-        LEVEL 2 OF 4 • CR7 TRIVIA ARENA
+        LEVEL 1 OF 4 • THE CR7 CHALLENGE
       </motion.div>
 
       {/* Main Heading */}
       <motion.h2
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-3xl sm:text-5xl md:text-6xl font-sports text-center tracking-wide uppercase text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-300 to-yellow-400 drop-shadow-[0_0_25px_rgba(230,0,0,0.6)] mb-3"
+        className="text-3xl sm:text-5xl md:text-6xl font-sports text-center tracking-wide uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-red-500 drop-shadow-[0_0_25px_rgba(200,16,46,0.6)] mb-3"
       >
         ARE YOU A TRUE CR7 FAN?
       </motion.h2>
 
-      <p className="text-neutral-400 text-sm sm:text-base text-center max-w-xl mb-6">
-        Test your Ronaldo knowledge in these 3 iconic missions. Answer correctly to unlock the champion's next stage!
+      <p className="text-neutral-300 text-sm sm:text-base text-center max-w-xl mb-6">
+        Step up, <strong className="text-amber-400">Player Roshan</strong>! Test your Ronaldo knowledge in these 3 legendary challenges to unlock Level 2.
       </p>
 
       {/* Score & Progress HUD */}
       <div className="w-full max-w-xl flex items-center justify-between gap-4 mb-4 bg-neutral-900/80 px-4 py-2.5 rounded-xl border border-neutral-800">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-sports text-neutral-400">MISSION:</span>
+          <span className="text-xs font-sports text-neutral-400">CHALLENGE:</span>
           <span className="text-sm font-tech font-bold text-amber-400">
             {currentChallengeIdx + 1} / {CR7_CHALLENGES.length}
           </span>
@@ -130,7 +124,7 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="w-full max-w-xl rounded-2xl bg-gradient-to-b from-neutral-900 via-black to-neutral-950 border-2 border-red-900/50 p-6 sm:p-8 shadow-2xl relative"
+            className="w-full max-w-xl rounded-2xl bg-gradient-to-b from-neutral-900 via-[#0a0a0f] to-neutral-950 border-2 border-red-900/50 p-6 sm:p-8 shadow-2xl relative"
           >
             {/* Challenge Tag */}
             <div className="flex items-center justify-between mb-4">
@@ -218,10 +212,10 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-end">
                 <button
                   onClick={handleNextChallenge}
-                  className="flex items-center gap-2 px-6 py-3 rounded-full font-sports text-sm sm:text-base uppercase bg-gradient-to-r from-red-600 to-amber-500 text-white shadow-[0_0_20px_rgba(230,0,0,0.6)] hover:scale-105 active:scale-95 transition-transform"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full font-sports text-sm sm:text-base uppercase bg-gradient-to-r from-red-600 to-amber-500 text-white shadow-[0_0_20px_rgba(200,16,46,0.6)] hover:scale-105 active:scale-95 transition-transform"
                 >
                   <span>
-                    {currentChallengeIdx < CR7_CHALLENGES.length - 1 ? 'NEXT CHALLENGE' : 'FINISH TRIVIA ARENA 🏆'}
+                    {currentChallengeIdx < CR7_CHALLENGES.length - 1 ? 'NEXT CHALLENGE' : 'FINISH CR7 QUIZ 🏆'}
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -230,13 +224,13 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
           </motion.div>
         </AnimatePresence>
       ) : (
-        /* Completed Screen for Level 2 */
+        /* Completed Screen for Level 1 */
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="w-full max-w-xl text-center p-8 rounded-3xl bg-gradient-to-b from-neutral-900 via-black to-neutral-950 border-2 border-amber-500 shadow-[0_0_50px_rgba(255,215,0,0.5)]"
+          className="w-full max-w-xl text-center p-8 rounded-3xl bg-gradient-to-b from-neutral-900 via-black to-neutral-950 border-2 border-amber-500 shadow-[0_0_50px_rgba(212,175,55,0.4)]"
         >
-          <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-red-600 to-amber-400 flex items-center justify-center text-4xl shadow-[0_0_30px_#e60000] mb-4">
+          <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-red-600 to-amber-400 flex items-center justify-center text-4xl shadow-[0_0_30px_#c8102e] mb-4">
             🐐
           </div>
 
@@ -244,13 +238,13 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
             SIUUUU! CHALLENGE COMPLETED! 🐐
           </h3>
 
-          <p className="text-neutral-300 text-base mb-4">
-            You scored <strong className="text-amber-400">{score} of {CR7_CHALLENGES.length}</strong>! Certified CR7 GOAT Knowledge!
-          </p>
-
-          <div className="text-xs text-neutral-400 uppercase tracking-widest mb-6">
-            UNLOCKING LEVEL 3: THE ROAD TO GREATNESS...
+          <div className="text-xl font-sports text-white mb-2">
+            LEVEL 1 COMPLETED! 🏆
           </div>
+
+          <p className="text-neutral-300 text-base mb-6">
+            Player Roshan, you scored <strong className="text-amber-400">{score} of {CR7_CHALLENGES.length}</strong>! Certified CR7 GOAT Knowledge!
+          </p>
 
           <div className="flex items-center justify-center gap-3">
             <button
@@ -258,13 +252,13 @@ export default function Level2Challenge({ onCompleteLevel, isCompleted, onNextLe
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-sports bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              REPLAY TRIVIA
+              REPLAY QUIZ
             </button>
             <button
-              onClick={() => onNextLevel(3)}
+              onClick={() => onNextLevel(2)}
               className="flex items-center gap-2 px-6 py-2.5 rounded-full font-sports text-sm bg-gradient-to-r from-red-600 to-amber-500 text-white shadow-lg hover:scale-105"
             >
-              PROCEED TO LEVEL 3 →
+              PROCEED TO LEVEL 2 →
             </button>
           </div>
         </motion.div>
