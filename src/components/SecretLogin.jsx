@@ -44,19 +44,23 @@ export default function SecretLogin({ onUnlockSuccess, sfxEnabled }) {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#07080c] text-white">
       
-      {/* CONTINUOUSLY MOVING PHOTO WALL / MEMORY GRID BEHIND LOGIN */}
-      <div className="absolute inset-0 z-0 overflow-hidden opacity-30 select-none pointer-events-none">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 w-full h-[200%] -translate-y-12">
+      {/* CONTINUOUSLY MOVING PHOTO WALL / MEMORY GRID BEHIND LOGIN - PROMINENT & VIBRANT */}
+      <div className="absolute inset-0 z-0 overflow-hidden opacity-90 select-none pointer-events-none">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 w-full h-[220%] -translate-y-12">
           
           {/* Column 1 - Moving Up */}
           <motion.div
             animate={{ y: [0, -400] }}
             transition={{ repeat: Infinity, duration: 25, ease: 'linear' }}
-            className="flex flex-col gap-3 md:gap-4"
+            className="flex flex-col gap-3 md:gap-5"
           >
             {col1.map((photo, i) => (
-              <div key={`c1-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
-                <img src={photo} alt="" className="w-full h-full object-cover object-center" />
+              <div key={`c1-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-amber-400/25 shadow-2xl bg-neutral-900/60">
+                <img 
+                  src={photo} 
+                  alt="" 
+                  className="w-full h-full object-cover object-center filter brightness-[1.06] contrast-[1.08] saturate-[1.06]" 
+                />
               </div>
             ))}
           </motion.div>
@@ -65,11 +69,15 @@ export default function SecretLogin({ onUnlockSuccess, sfxEnabled }) {
           <motion.div
             animate={{ y: [-400, 0] }}
             transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
-            className="flex flex-col gap-3 md:gap-4"
+            className="flex flex-col gap-3 md:gap-5"
           >
             {col2.map((photo, i) => (
-              <div key={`c2-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
-                <img src={photo} alt="" className="w-full h-full object-cover object-center" />
+              <div key={`c2-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-amber-400/25 shadow-2xl bg-neutral-900/60">
+                <img 
+                  src={photo} 
+                  alt="" 
+                  className="w-full h-full object-cover object-center filter brightness-[1.06] contrast-[1.08] saturate-[1.06]" 
+                />
               </div>
             ))}
           </motion.div>
@@ -78,30 +86,37 @@ export default function SecretLogin({ onUnlockSuccess, sfxEnabled }) {
           <motion.div
             animate={{ y: [0, -450] }}
             transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
-            className="hidden md:flex flex-col gap-4"
+            className="hidden md:flex flex-col gap-5"
           >
             {col3.map((photo, i) => (
-              <div key={`c3-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
-                <img src={photo} alt="" className="w-full h-full object-cover object-center" />
+              <div key={`c3-${i}`} className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-amber-400/25 shadow-2xl bg-neutral-900/60">
+                <img 
+                  src={photo} 
+                  alt="" 
+                  className="w-full h-full object-cover object-center filter brightness-[1.06] contrast-[1.08] saturate-[1.06]" 
+                />
               </div>
             ))}
           </motion.div>
         </div>
       </div>
 
-      {/* Dark Vignette Overlay for Readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 pointer-events-none z-0" />
+      {/* Subtle Vignette Overlay - Significantly Reduced to make Photos the Main Attraction */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/25 pointer-events-none z-0" />
 
-      {/* Radial Champagne & Crimson Glow */}
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-red-900/20 blur-[130px] pointer-events-none" />
-      <div className="absolute w-[400px] h-[400px] rounded-full bg-amber-500/10 blur-[120px] pointer-events-none" />
+      {/* Soft Center Shadow to separate the Password Popup from the background photos */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full bg-black/65 blur-[85px] pointer-events-none z-0" />
 
-      {/* CENTERED GLASSMORPHIC LOGIN CARD */}
+      {/* Radial Champagne & Crimson Ambient Glow */}
+      <div className="absolute w-[500px] h-[500px] rounded-full bg-red-900/20 blur-[130px] pointer-events-none z-0" />
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-amber-500/10 blur-[120px] pointer-events-none z-0" />
+
+      {/* CENTERED GLASSMORPHIC LOGIN CARD - DARK, ELEGANT & HIGH CONTRAST */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative z-10 w-full max-w-md mx-4 p-7 sm:p-9 rounded-3xl bg-neutral-950/85 backdrop-blur-xl border border-amber-400/40 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.2)] text-center"
+        className="relative z-10 w-full max-w-md mx-4 p-7 sm:p-9 rounded-3xl bg-[#0c0d12]/95 backdrop-blur-2xl border-2 border-amber-400/60 shadow-[0_0_80px_rgba(0,0,0,0.95),0_0_40px_rgba(212,175,55,0.35),0_25px_60px_rgba(0,0,0,0.9)] text-center"
       >
         {/* Lock Icon Badge */}
         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-red-600 via-amber-500 to-yellow-400 p-[2px] shadow-[0_0_20px_rgba(200,16,46,0.5)]">

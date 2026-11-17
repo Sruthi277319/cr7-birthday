@@ -104,130 +104,220 @@ export default function RoseBloom({ onProceedToAdventure, sfxEnabled }) {
       {/* Main Content Container */}
       <div className="relative z-10 max-w-xl w-full flex flex-col items-center text-center">
         
-        {/* Animated Blooming Rose SVG */}
-        <div className="relative w-56 h-56 sm:w-68 sm:h-68 my-4 flex items-center justify-center">
-          
-          {/* Rose Stem & Leaves */}
-          <svg viewBox="0 0 200 240" className="w-full h-full drop-shadow-[0_0_35px_rgba(200,16,46,0.5)]">
-            {/* Green Stem */}
+        {/* Animated Blooming Rose - Cinematic, Multi-Layered Velvet Petals & Dewdrops */}
+        <motion.div 
+          animate={{ scale: bloomStage >= 2 ? [1, 1.05, 1.03] : 1 }}
+          transition={{ duration: 3, ease: 'easeInOut' }}
+          className="relative w-64 h-64 sm:w-80 sm:h-80 my-4 flex items-center justify-center drop-shadow-[0_0_40px_rgba(200,16,46,0.55)]"
+        >
+          <svg viewBox="0 0 240 280" className="w-full h-full overflow-visible">
+            <defs>
+              {/* Petal Gradients */}
+              <radialGradient id="deepPetalGrad" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor="#e60026" />
+                <stop offset="50%" stopColor="#a3001a" />
+                <stop offset="85%" stopColor="#630010" />
+                <stop offset="100%" stopColor="#3b0009" />
+              </radialGradient>
+
+              <radialGradient id="midPetalGrad" cx="45%" cy="40%" r="60%">
+                <stop offset="0%" stopColor="#ff2647" />
+                <stop offset="55%" stopColor="#c80022" />
+                <stop offset="88%" stopColor="#800016" />
+                <stop offset="100%" stopColor="#45000b" />
+              </radialGradient>
+
+              <radialGradient id="innerPetalGrad" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stopColor="#ff4d68" />
+                <stop offset="50%" stopColor="#e00028" />
+                <stop offset="85%" stopColor="#99001b" />
+                <stop offset="100%" stopColor="#57000f" />
+              </radialGradient>
+
+              <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#1e5c2b" />
+                <stop offset="50%" stopColor="#14421e" />
+                <stop offset="100%" stopColor="#0c2912" />
+              </linearGradient>
+
+              <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2e853f" />
+                <stop offset="70%" stopColor="#195424" />
+                <stop offset="100%" stopColor="#0f3616" />
+              </linearGradient>
+
+              <filter id="dewGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="1" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
+            {/* Stem & Thorns */}
             <path
-              d="M100 130 C100 170 95 195 90 230"
-              stroke="#1b4d24"
-              strokeWidth="5"
+              d="M120 155 Q122 195 116 260"
+              stroke="url(#stemGrad)"
+              strokeWidth="6"
               strokeLinecap="round"
               fill="none"
             />
-            {/* Side Leaves */}
-            <path
-              d="M96 170 C70 160 60 175 65 185 C75 190 92 180 94 172"
-              fill="#226330"
-              stroke="#133d1b"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M94 190 C118 180 130 195 125 205 C115 210 98 200 93 192"
-              fill="#226330"
-              stroke="#133d1b"
-              strokeWidth="1.5"
-            />
+            {/* Thorn */}
+            <path d="M121 210 Q127 213 130 219 Q123 218 120 216 Z" fill="#14421e" />
+            <path d="M117 235 Q110 238 107 244 Q114 243 117 241 Z" fill="#14421e" />
 
-            {/* BLOOMING PETALS (Animated via Scale & Rotation) */}
-            {/* Outer Petals (Reveal in full bloom) */}
-            <g
-              style={{
-                transformOrigin: '100px 105px',
-                transition: 'all 1.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: bloomStage >= 2 ? 'scale(1)' : bloomStage === 1 ? 'scale(0.55)' : 'scale(0.2)',
-                opacity: bloomStage >= 1 ? 1 : 0.2,
-              }}
-            >
-              {/* Petal Outer 1 */}
+            {/* Natural Green Leaves with Ribs */}
+            <g>
+              {/* Left Leaf */}
               <path
-                d="M100 50 C50 65 50 130 100 135 C150 130 150 65 100 50 Z"
-                fill="url(#outerPetalGrad)"
+                d="M118 190 C80 175 60 195 68 215 C85 220 108 205 117 195"
+                fill="url(#leafGrad)"
+                stroke="#0f3616"
+                strokeWidth="1.2"
               />
-              {/* Petal Outer Left Wings */}
+              <path d="M117 195 Q90 198 70 212" stroke="#48b35f" strokeWidth="1" fill="none" opacity="0.6" />
+
+              {/* Right Leaf */}
               <path
-                d="M100 110 C60 70 40 105 70 130 C90 135 98 125 100 110 Z"
-                fill="#b8001f"
+                d="M119 215 C150 200 175 220 165 240 C145 245 125 230 118 220"
+                fill="url(#leafGrad)"
+                stroke="#0f3616"
+                strokeWidth="1.2"
               />
-              {/* Petal Outer Right Wings */}
-              <path
-                d="M100 110 C140 70 160 105 130 130 C110 135 102 125 100 110 Z"
-                fill="#b8001f"
-              />
+              <path d="M118 220 Q145 223 162 237" stroke="#48b35f" strokeWidth="1" fill="none" opacity="0.6" />
             </g>
 
-            {/* Mid Petals */}
-            <g
-              style={{
-                transformOrigin: '100px 100px',
-                transition: 'all 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: bloomStage >= 1 ? 'scale(1) rotate(0deg)' : 'scale(0.4) rotate(-15deg)',
+            {/* Sepals directly beneath the flower */}
+            <g fill="#1a4d25">
+              <path d="M105 155 Q95 145 80 150 Q96 160 110 160 Z" />
+              <path d="M135 155 Q145 145 160 150 Q144 160 130 160 Z" />
+              <path d="M120 156 Q120 168 116 172 Q122 165 120 156 Z" />
+            </g>
+
+            {/* ================= ROSE PETALS UNVEILING ================= */}
+            {/* Layer 1: Wide Outer Velvet Petals (Stage 2) */}
+            <motion.g
+              style={{ transformOrigin: '120px 125px' }}
+              initial={{ scale: 0.3, opacity: 0 }}
+              animate={{
+                scale: bloomStage >= 2 ? 1 : bloomStage === 1 ? 0.6 : 0.3,
+                opacity: bloomStage >= 1 ? 1 : 0,
               }}
+              transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Bottom Outer Petal */}
+              <path
+                d="M120 70 C50 80 40 160 120 168 C200 160 190 80 120 70 Z"
+                fill="url(#deepPetalGrad)"
+                stroke="#4a000c"
+                strokeWidth="1"
+              />
+              {/* Left Flare Petal */}
+              <path
+                d="M120 135 C65 85 45 130 75 160 C95 168 115 150 120 135 Z"
+                fill="#940018"
+                opacity="0.9"
+              />
+              {/* Right Flare Petal */}
+              <path
+                d="M120 135 C175 85 195 130 165 160 C145 168 125 150 120 135 Z"
+                fill="#940018"
+                opacity="0.9"
+              />
+            </motion.g>
+
+            {/* Layer 2: Mid-Curved Blooming Petals (Stage 1 & 2) */}
+            <motion.g
+              style={{ transformOrigin: '120px 120px' }}
+              initial={{ scale: 0.45, rotate: -20 }}
+              animate={{
+                scale: bloomStage >= 2 ? 1 : bloomStage >= 1 ? 0.8 : 0.45,
+                rotate: bloomStage >= 2 ? 0 : -10,
+              }}
+              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <path
-                d="M100 65 C75 75 70 115 100 125 C130 115 125 75 100 65 Z"
+                d="M120 78 C78 90 70 142 120 152 C170 142 162 90 120 78 Z"
                 fill="url(#midPetalGrad)"
+                stroke="#690011"
+                strokeWidth="0.8"
               />
+              {/* Overlapping Curved Petal Left */}
               <path
-                d="M100 70 C85 80 80 105 100 115 C118 105 115 80 100 70 Z"
-                fill="#e60026"
+                d="M120 85 C85 92 82 125 108 142 C120 146 126 130 120 85 Z"
+                fill="#b8001f"
               />
-            </g>
+              {/* Overlapping Curved Petal Right */}
+              <path
+                d="M120 85 C155 92 158 125 132 142 C120 146 114 130 120 85 Z"
+                fill="#c70023"
+              />
+            </motion.g>
 
-            {/* Center Rosebud Core */}
-            <g style={{ transformOrigin: '100px 95px' }}>
+            {/* Layer 3: Central Cup Petals */}
+            <motion.g
+              style={{ transformOrigin: '120px 115px' }}
+              initial={{ scale: 0.6 }}
+              animate={{
+                scale: bloomStage >= 1 ? 1 : 0.6,
+              }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            >
               <path
-                d="M100 75 C90 82 88 98 100 105 C112 98 110 82 100 75 Z"
-                fill="#ff1a40"
+                d="M120 90 C96 98 94 130 120 138 C146 130 144 98 120 90 Z"
+                fill="url(#innerPetalGrad)"
               />
-              {/* Velvet Rosebud Spiral Highlight */}
+              {/* Swirling Center Buds */}
               <path
-                d="M98 80 C104 80 105 88 100 92 C95 88 97 83 100 83"
+                d="M112 102 C106 110 114 122 120 125 C126 122 134 110 128 102 C122 96 118 96 112 102 Z"
+                fill="#ff1a43"
+              />
+              {/* Rose Core Spiral Rim */}
+              <path
+                d="M117 107 C124 104 125 113 120 116 C115 113 118 108 121 108"
                 stroke="#ffd700"
                 strokeWidth="1.2"
+                strokeLinecap="round"
                 fill="none"
+                opacity="0.85"
               />
+            </motion.g>
+
+            {/* Fresh Dewdrops with Highlights */}
+            <g filter="url(#dewGlow)">
+              {/* Dewdrop 1 on bottom petal */}
+              <circle cx="100" cy="150" r="2.4" fill="#ffffff" opacity="0.8" />
+              <circle cx="99.3" cy="149.3" r="0.8" fill="#ffffff" />
+
+              {/* Dewdrop 2 on right leaf */}
+              <circle cx="145" cy="225" r="2.8" fill="#ffffff" opacity="0.75" />
+              <circle cx="144" cy="224" r="0.9" fill="#ffffff" />
+
+              {/* Dewdrop 3 on left petal */}
+              <circle cx="78" cy="135" r="2" fill="#ffffff" opacity="0.7" />
             </g>
-
-            {/* Gradients */}
-            <defs>
-              <radialGradient id="outerPetalGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#e60026" />
-                <stop offset="70%" stopColor="#9e0017" />
-                <stop offset="100%" stopColor="#5c000d" />
-              </radialGradient>
-              <radialGradient id="midPetalGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#ff1a40" />
-                <stop offset="80%" stopColor="#c8001e" />
-                <stop offset="100%" stopColor="#800013" />
-              </radialGradient>
-            </defs>
           </svg>
-        </div>
+        </motion.div>
 
-        {/* Text 1: A LITTLE SURPRISE FOR SOMEONE SPECIAL... */}
+        {/* Text 1: A little surprise for someone... the special one ❤️ */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
           className="text-xs sm:text-sm font-tech text-amber-300 uppercase tracking-widest mb-3 font-semibold"
         >
-          A LITTLE SURPRISE FOR SOMEONE SPECIAL...
+          A little surprise for someone... the special one ❤️
         </motion.div>
 
-        {/* Text 2: HAPPINESS LOOKS GOOD ON YOU, ROSHAN! ❤️ */}
+        {/* Text 2: A beautiful surprise awaits you, Roshan ❤️ */}
         <motion.h2
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 1.8 }}
           className="text-2xl sm:text-4xl md:text-5xl font-sports tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 drop-shadow-[0_0_25px_rgba(212,175,55,0.6)] mb-8"
         >
-          HAPPINESS LOOKS GOOD ON YOU, ROSHAN! ❤️
+          A beautiful surprise awaits you, Roshan ❤️
         </motion.h2>
 
-        {/* GO BUTTON – LET'S GO! ❤️⚽ */}
+        {/* GO BUTTON – GO 🌹 */}
         {bloomStage >= 3 && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -239,7 +329,7 @@ export default function RoseBloom({ onProceedToAdventure, sfxEnabled }) {
               onClick={handleGo}
               className="group relative inline-flex items-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full font-sports text-lg sm:text-2xl uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-red-500 to-amber-500 shadow-[0_0_35px_rgba(200,16,46,0.8)] hover:shadow-[0_0_55px_rgba(212,175,55,0.95)] hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-amber-300 animate-pulse"
             >
-              <span>LET'S GO! ❤️⚽</span>
+              <span>GO 🌹</span>
               <ArrowRight className="w-6 h-6 text-amber-200 group-hover:translate-x-1.5 transition-transform" />
             </button>
           </motion.div>
