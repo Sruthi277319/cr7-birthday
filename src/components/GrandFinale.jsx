@@ -165,7 +165,7 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
         <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
       </motion.div>
 
-      {/* 1. RESTORED INITIAL BIRTHDAY GREETING: "Happy Birthday Nanba Roshan ❤️" */}
+      {/* 1. RESTORED INITIAL BIRTHDAY GREETING: "Happiestt Birthdayyy Nanbaaa Roshan ❤️" */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -174,10 +174,10 @@ export default function GrandFinale({ onRestartAdventure, sfxEnabled, triggerSiu
       >
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-sports tracking-wide leading-tight text-white">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
-            HAPPIESTTTT BIRTHDAYYYYY
+            HAPPIESTT BIRTHDAYYY
           </span>{' '}
           <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-crimson glow-crimson">
-            NANBA ROSHAN! ❤️
+            NANBAAA ROSHAN! ❤️
             <span className="absolute -bottom-2 inset-x-0 h-1 bg-red-600 rounded-full shadow-[0_0_15px_#c8102e]" />
           </span>{' '}
           <span className="whitespace-nowrap text-3xl sm:text-5xl md:text-6xl align-middle">

@@ -82,7 +82,7 @@ export default function App() {
   };
 
   const handleSelectLevel = (levelNum) => {
-    if (levelNum <= maxUnlockedLevel) {
+    if (levelNum <= maxUnlockedLevel || levelNum === 5) {
       setCurrentStage(levelNum);
       if (levelNum === 5) {
         setBgmMode('emotional');
@@ -134,8 +134,8 @@ export default function App() {
             setSfxEnabled={setSfxEnabled} 
           />
 
-          {/* Persistent Progress HUD Header (Levels 1 to 4) */}
-          {currentStage >= 1 && currentStage <= 4 && (
+          {/* Persistent Progress HUD Header (Levels 1 to 5) */}
+          {currentStage >= 1 && currentStage <= 5 && (
             <ProgressHUD
               currentLevel={currentStage}
               maxUnlockedLevel={maxUnlockedLevel}

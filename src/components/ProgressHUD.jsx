@@ -7,6 +7,7 @@ export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLe
     { num: 2, name: 'ROAD TO GREATNESS', label: 'LEVEL 2' },
     { num: 3, name: 'FOOTBALL GAME', label: 'LEVEL 3' },
     { num: 4, name: 'SECRET GIFT', label: 'LEVEL 4' },
+    { num: 5, name: 'BIRTHDAY CAKE', label: 'FINALE 🎂' },
   ];
 
   return (
@@ -36,7 +37,7 @@ export default function ProgressHUD({ currentLevel, maxUnlockedLevel, onSelectLe
           {levels.map((lvl) => {
             const isCompleted = maxUnlockedLevel > lvl.num || currentLevel > lvl.num;
             const isCurrent = currentLevel === lvl.num;
-            const isUnlocked = lvl.num <= maxUnlockedLevel;
+            const isUnlocked = lvl.num <= maxUnlockedLevel || lvl.num === 5;
 
             return (
               <button
