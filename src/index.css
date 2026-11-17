@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #050507;
+    color: #ffffff;
+  }
+}
+
+.font-sports {
+  font-family: 'Russo One', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-tech {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-serif-luxury {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Metallic Gold text gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF6BD 0%, #F5D061 25%, #E6B800 50%, #FFD700 75%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CR7 Red text gradient */
+.text-cr7-gradient {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF1A1A 40%, #D40000 80%, #900000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing text effects */
+.glow-gold {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.glow-red {
+  text-shadow: 0 0 10px rgba(255, 30, 30, 0.8), 0 0 30px rgba(200, 16, 46, 0.6), 0 0 50px rgba(180, 0, 0, 0.4);
+}
+
+.glow-box-red {
+  box-shadow: 0 0 25px -5px rgba(230, 0, 0, 0.5), 0 0 10px 0 rgba(230, 0, 0, 0.3);
+}
+
+.glow-box-gold {
+  box-shadow: 0 0 30px -5px rgba(255, 215, 0, 0.5), 0 0 12px 0 rgba(255, 215, 0, 0.3);
+}
+
+/* Stadium light beam animations */
+@keyframes floodlight-sweep {
+  0% {
+    transform: rotate(-25deg) scaleY(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: rotate(25deg) scaleY(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(-25deg) scaleY(1);
+    opacity: 0.35;
+  }
+}
+
+.animate-floodlight-left {
+  animation: floodlight-sweep 8s ease-in-out infinite;
+  transform-origin: top left;
+}
+
+.animate-floodlight-right {
+  animation: floodlight-sweep 8s ease-in-out infinite reverse;
+  transform-origin: top right;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090c;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a0808;
+  border-radius: 4px;
+  border: 1px solid rgba(230, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c8102e;
+}
